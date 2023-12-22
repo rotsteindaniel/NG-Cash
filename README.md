@@ -4,9 +4,9 @@ NG.CASH
 
 ## Backend
 
-- [ ] Precisa usar Docker;
+- [x] Precisa usar Docker;
 - [ ] Um servidor em Node.js utilizando Typescript;
-- [ ] Prisma ORM (poderia escolher qualquer um);
+- [x] Prisma ORM (poderia escolher qualquer um);
 - [ ] Os dados da aplicação precisam estar persistidos em um banco PostgreSQL;
 
 ## Frontend
