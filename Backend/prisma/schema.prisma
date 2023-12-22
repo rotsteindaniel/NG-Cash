@@ -15,28 +15,32 @@ model User {
   username      String @unique
   password_hash String
 
-  account     Account       @relation(fields: [accountId], references: [id])
-  accountId   String        @unique
-  Transaction Transaction[]
+  accountId String  @unique
+  account   Account @relation(fields: [accountId], references: [id])
 
   @@map("users")
 }
 
 model Account {
   id      String @id @default(uuid())
-  balance String @default("100")
+  balance Float  @default(100)
 
   User User?
+
+  creditedAccount Transaction? @relation(name: "creditedAccount")
+  debitedAccount  Transaction? @relation(name: "debitedAccount")
 
   @@map("accounts")
 }
 
 model Transaction {
-  id      String @id @default(uuid())
-  balance String @default("100")
-
-  User   User?   @relation(fields: [userId], references: [id])
-  userId String?
+  id                String   @id @default(uuid())
+  creditedAccountId String   @unique
+  debitedAccountId  String   @unique
+  value             Float
+  createdAt         DateTime
+  creditedAccount   Account  @relation(name: "creditedAccount", fields: [creditedAccountId], references: [id])
+  debitedAccount    Account  @relation(name: "debitedAccount", fields: [debitedAccountId], references: [id])
 
   @@map("transactions")
 }
