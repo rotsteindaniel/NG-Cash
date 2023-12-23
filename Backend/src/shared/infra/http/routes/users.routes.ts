@@ -4,7 +4,7 @@ import { FastifyInstance } from 'fastify'
 
 // import { authenticate } from './authenticate'
 // import { profile } from './profile'
-import { registerUserAndAccountController } from '../../../../use-cases/registerUserAndAccount/registerUserAndAccountController'
+import { registerUserAndAccountController } from '@/modules/userAndAccount/useCases/registerUserAndAccount/registerUserAndAccountController'
 // import { refresh } from './refresh'
 
 export async function usersRoutes(app: FastifyInstance) {

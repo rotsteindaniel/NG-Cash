@@ -1,11 +1,11 @@
 import fastify from 'fastify';
 
-import { authenticateRoutes } from './authenticate.routes';
-import { carsRoutes } from './cars.routes';
-import { categoriesRoutes } from './categories.routes';
-import { passwordRoutes } from './password.routes';
-import { rentalRoutes } from './rental.routes';
-import { specificationsRoutes } from './specifications.routes';
+// import { authenticateRoutes } from './authenticate.routes';
+// import { carsRoutes } from './cars.routes';
+// import { categoriesRoutes } from './categories.routes';
+// import { passwordRoutes } from './password.routes';
+// import { rentalRoutes } from './rental.routes';
+// import { specificationsRoutes } from './specifications.routes';
 import { usersRoutes } from './users.routes';
 
 const app = fastify();

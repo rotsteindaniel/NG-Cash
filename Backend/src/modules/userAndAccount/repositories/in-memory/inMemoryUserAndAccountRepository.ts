@@ -1,6 +1,5 @@
-import { IUserAndAccountRepository } from '@/repositories/IUserAndAccountRepository'
+import { IUserAndAccountRepository } from '../IUserAndAccountRepository'
 import { User, Prisma } from '@prisma/client'
-
 
 export class InMemoryUserAndAccountRepository implements IUserAndAccountRepository {
   public items: User[] = []
