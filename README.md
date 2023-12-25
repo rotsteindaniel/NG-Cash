@@ -50,8 +50,8 @@ NG.CASH
 
 - [x] username tem que ser único;
 - [x] username composto por, pelo menos, 3 caracteres;
-- [ ] password composta por pelo menos 8 caracteres, um número e uma letra maiúscula;
-- [ ] (depois cadastro), automaticamente cria 1 account, na tabela account com R$100 de balance;
+- [x] password composta por pelo menos 8 caracteres, um número e uma letra maiúscula;
+- [x] (depois cadastro), automaticamente cria 1 account, na tabela account com R$100 de balance;
 - [ ] (depois de logado) pode fazer cash-out informando o username do usuário que sofrerá o cash-in;
 - [ ] (depois de logado) deverá ser capaz de visualizar as transações financeiras (cash-out e cash-in) que participou;
 - [ ] Caso o usuário não tenha participado de uma determinada transação, ele nunca poderá ter acesso à ela;
