@@ -14,15 +14,15 @@ export class InMemoryUserAndAccountRepository implements IUserAndAccountReposito
     return user
   }
 
-  async findByEmail(email: string) {
-    const user = this.items.find((item) => item.email === email)
+  // async findByEmail(email: string) {
+  //   const user = this.items.find((item) => item.email === email)
 
-    if (!user) {
-      return null
-    }
+  //   if (!user) {
+  //     return null
+  //   }
 
-    return user
-  }
+  //   return user
+  // }
 
   async findByUsername(username: string) {
     const user = this.items.find((item) => item.username === username)
@@ -35,14 +35,20 @@ export class InMemoryUserAndAccountRepository implements IUserAndAccountReposito
   }
 
   async create(data: Prisma.UserCreateInput) {
+    const id = JSON.stringify(Math.random())
+    const accountId = JSON.stringify(Math.random())
+
     const user = {
-      id: JSON.stringify(Math.random()),
+      id: id,
       username: data.username,
       password_hash: data.password_hash,
-    }
-
+      accountId: accountId
+    }    
+    
     this.items.push(user)
 
     return user
   }
+
+  
 }

@@ -30,6 +30,11 @@ export class RegisterUserAndAccountUseCase {
     const user = await this.usersAndAccountRepository.create({
       username,
       password_hash,
+      account: {
+        create: {
+          balance: 100
+        }
+      }
     })
 
     return {
