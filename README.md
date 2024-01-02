@@ -29,7 +29,7 @@ NG.CASH
 - [x] Deve ser possível se cadastrar um User (informe username, password para cadastrar);
 - [x] (depois cadastro), automaticamente cria 1 account, na tabela account com R$100 de balance;
 - [x] Deve ser possível logar um User (informe username, password para cadastrar);
-- [ ] (depois de logado) Deve ser possível ver balance do User
+- [x] (depois de logado) Deve ser possível ver balance do User
 - [ ] (depois de logado) Deve ser possível ver Tabela com os detalhes de todas as transações que o usuário participou
 - [ ] (depois de logado) Deve ser possível transferir para outros usuários NG a partir do username de quem sofrerá o cash-in
 - [ ] (depois de logado) Deve ser possível filtrar a tabela por data de transação e/ou transações do tipo cash-in/cash-out;
