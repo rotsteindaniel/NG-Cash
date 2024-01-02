@@ -14,6 +14,16 @@ export class PrismaUsersAndAccountRepository implements IUserAndAccountRepositor
     return user
   }
 
+  async findByAccountId(id: string) {
+    const account = await prisma.account.findUnique({
+      where: {
+        id,
+      },
+    })
+
+    return account
+  }
+
   async findByUsername(username: string) {
     const user = await prisma.user.findUnique({
       where: {

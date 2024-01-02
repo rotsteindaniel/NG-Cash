@@ -23,9 +23,9 @@ export async function authenticateUserAndAccountController(
     })
 
     const token = await reply.jwtSign(
-      // {
-      //   role: user.role,
-      // },
+      {
+        accountId: user.accountId,
+      },
       {
         sign: {
           sub: user.id,

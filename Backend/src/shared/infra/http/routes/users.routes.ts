@@ -1,10 +1,11 @@
 import { FastifyInstance } from 'fastify'
 
-// import { verifyJwt } from '@/http/middlewares/verify-jwt'
+import { verifyJwt } from '../middlewares/verify-jwt'
 
 import { authenticateUserAndAccountController } from '@/modules/userAndAccount/useCases/authenticateUserAndAccount/authenticateUserAndAccountController'
 // import { profile } from './profile'
 import { registerUserAndAccountController } from '@/modules/userAndAccount/useCases/registerUserAndAccount/registerUserAndAccountController'
+import { seeUserBalanceController } from '@/modules/userAndAccount/useCases/seeUserBalance/seeUserBalanceController'
 // import { refresh } from './refresh'
 
 export async function usersRoutes(app: FastifyInstance) {
@@ -15,4 +16,6 @@ export async function usersRoutes(app: FastifyInstance) {
 
   /** Authenticated */
   // app.get('/me', { onRequest: [verifyJwt] }, profile)
+
+  app.get('/user/balance', { onRequest: [verifyJwt] }, seeUserBalanceController)
 }
