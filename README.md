@@ -52,7 +52,7 @@ NG.CASH
 - [x] username composto por, pelo menos, 3 caracteres;
 - [x] password composta por pelo menos 8 caracteres, um número e uma letra maiúscula;
 - [x] (depois cadastro), automaticamente cria 1 account, na tabela account com R$100 de balance;
-- [ ] (depois de logado) pode fazer cash-out informando o username do usuário que sofrerá o cash-in;
+- [x] (depois de logado) pode fazer cash-out informando o username do usuário que sofrerá o cash-in;
 - [ ] (depois de logado) deverá ser capaz de visualizar as transações financeiras (cash-out e cash-in) que participou;
 - [ ] Caso o usuário não tenha participado de uma determinada transação, ele nunca poderá ter acesso à ela;
 - [ ] Todo usuário logado deverá ser capaz de filtrar as transações financeiras que participou por:
@@ -60,8 +60,8 @@ NG.CASH
       e/ou
       Transações de _cash-out;_
       Transações de _cash-in._
-- [ ] Só pode cash-out se tiver balance suficiente para isso;
-- [ ] Usuário não deverá ter a possibilidade de realizar uma transferência para si mesmo;
+- [x] Só pode cash-out se tiver balance suficiente para isso;
+- [x] Usuário não deverá ter a possibilidade de realizar uma transferência para si mesmo;
 - [ ] Toda nova transação bem-sucedida deverá ser registrada na tabela Transactions;
 - [ ] Em casos de falhas transacionais, a tabela Transactions não deverá ser afetada;
 
