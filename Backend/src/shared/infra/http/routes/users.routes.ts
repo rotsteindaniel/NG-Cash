@@ -7,6 +7,7 @@ import { authenticateUserAndAccountController } from '@/modules/userAndAccount/u
 import { registerUserAndAccountController } from '@/modules/userAndAccount/useCases/registerUserAndAccount/registerUserAndAccountController'
 import { seeUserBalanceController } from '@/modules/userAndAccount/useCases/seeUserBalance/seeUserBalanceController'
 import { seeUserAccountTransactionsController } from '@/modules/userAndAccount/useCases/seeUserAccountTransactions/seeUserAccountTransactionsController'
+import { transferMoneyController } from '@/modules/userAndAccount/useCases/transferMoney/transferMoneyController'
 // import { refresh } from './refresh'
 
 export async function usersRoutes(app: FastifyInstance) {
@@ -20,4 +21,5 @@ export async function usersRoutes(app: FastifyInstance) {
 
   app.get('/user/balance', { onRequest: [verifyJwt] }, seeUserBalanceController)
   app.get('/user/transactions', { onRequest: [verifyJwt] }, seeUserAccountTransactionsController)
+  app.post('/user/transfer', { onRequest: [verifyJwt] }, transferMoneyController)
 }

@@ -1,0 +1,56 @@
+import { ResourceNotFoundError } from "@/shared/errors/resource-not-found-error";
+import { IUserAndAccountRepository } from "../../repositories/IUserAndAccountRepository";
+import { Transaction } from "@prisma/client";
+// import { User } from "@prisma/client";
+
+interface TransferMoneyUseCaseRequest {
+  sourceAccountId: string;
+  targetUsername: string;
+  amount: number;
+}
+
+// interface TransferMoneyUseCaseResponse {
+//   transactions: Transaction[];
+// }
+
+export class TransferMoneyUseCase {
+  constructor(private usersAndAccountRepository: IUserAndAccountRepository) {}
+
+  async execute({
+    sourceAccountId,
+    targetUsername,
+    amount,
+  }: TransferMoneyUseCaseRequest): Promise<void> {
+    // const transactions = await this.usersAndAccountRepository.findTransactionsByAccountId(accountId);
+
+    const sourceAccount = await this.usersAndAccountRepository.findByAccountId(sourceAccountId);
+    const targetUser = await this.usersAndAccountRepository.findByUsername(targetUsername);
+    const targetAccountId = targetUser?.accountId ?? '';
+    const targetAccount = await this.usersAndAccountRepository.findByAccountId(targetAccountId);
+
+    if (!sourceAccount || !targetAccount) {
+      throw new ResourceNotFoundError();
+    }
+
+    // Verificar se está tentando transferir para a própria conta
+    if (sourceAccountId === targetAccountId) {
+      throw new Error("Não é permitido transferir dinheiro para a própria conta.");
+    }
+
+     // Lógica de transferência de dinheiro (debitar da conta de sourceUser e creditar na conta de targetUser)
+    // Certifique-se de tratar casos onde o saldo não é suficiente, etc.
+
+    // Exemplo (esta lógica pode variar dependendo dos requisitos do seu sistema):
+    if (sourceAccount.balance < amount) {
+      throw new Error("Saldo insuficiente para realizar a transferência.");
+    }
+
+   const sourceNewBalance = sourceAccount.balance -= amount;
+   const targetNewBalance = targetAccount.balance += amount;
+
+     // Atualizar as contas no banco de dados
+     await this.usersAndAccountRepository.updateBalance(sourceAccount.id, sourceNewBalance);
+     await this.usersAndAccountRepository.updateBalance(targetAccount.id, targetNewBalance);
+
+  }
+}

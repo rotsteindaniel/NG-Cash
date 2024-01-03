@@ -54,4 +54,15 @@ export class PrismaUsersAndAccountRepository implements IUserAndAccountRepositor
 
     return user
   }
+
+  async updateBalance(id: string, newBalance: number) {
+    await prisma.account.update({
+      where: {
+        id,
+      },
+      data: {
+        balance: newBalance,
+      },
+    })
+  }
 }
