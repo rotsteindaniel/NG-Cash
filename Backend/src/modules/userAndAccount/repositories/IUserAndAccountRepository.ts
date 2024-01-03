@@ -7,4 +7,5 @@ export interface IUserAndAccountRepository {
   updateBalance(id: string, newBalance: number): Promise<void>;
   findByUsername(username: string): Promise<User | null>
   create(data: Prisma.UserCreateInput): Promise<User>
+  createTransaction(data: Prisma.TransactionCreateInput): Promise<void>;
 }

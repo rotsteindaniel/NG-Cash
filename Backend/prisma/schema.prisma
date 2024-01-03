@@ -27,16 +27,16 @@ model Account {
 
   User User?
 
-  creditedAccount Transaction? @relation(name: "creditedAccount")
-  debitedAccount  Transaction? @relation(name: "debitedAccount")
+  creditedAccount Transaction[] @relation(name: "creditedAccount")
+  debitedAccount  Transaction[] @relation(name: "debitedAccount")
 
   @@map("accounts")
 }
 
 model Transaction {
   id                String   @id @default(uuid())
-  creditedAccountId String   @unique
-  debitedAccountId  String   @unique
+  creditedAccountId String
+  debitedAccountId  String
   value             Float
   createdAt         DateTime
   creditedAccount   Account  @relation(name: "creditedAccount", fields: [creditedAccountId], references: [id])

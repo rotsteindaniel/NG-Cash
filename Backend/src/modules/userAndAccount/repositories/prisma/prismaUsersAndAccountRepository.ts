@@ -65,4 +65,21 @@ export class PrismaUsersAndAccountRepository implements IUserAndAccountRepositor
       },
     })
   }
+
+  // async createTransaction(data: Prisma.TransactionCreateInput): Promise<void> {
+  //    await prisma.transaction.create({
+  //     data,
+  //   });
+
+  async createTransaction(data: Prisma.TransactionCreateInput): Promise<void> {
+    try {
+      await prisma.transaction.create({
+        data,
+      });
+    } catch (error) {
+      // Você pode adicionar logs ou tratamentos específicos de erro aqui
+      console.error('Erro ao criar transação:', error.message);
+      throw new Error('Erro ao criar transação.');
+    }
+  }
 }
