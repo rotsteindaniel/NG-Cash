@@ -1,17 +1,19 @@
-import { prisma } from '@/lib/prisma'
-import { Prisma } from '@prisma/client'
+import { prisma } from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
 
-import { IUserAndAccountRepository } from '../IUserAndAccountRepository'
+import { IUserAndAccountRepository } from "../IUserAndAccountRepository";
 
-export class PrismaUsersAndAccountRepository implements IUserAndAccountRepository {
+export class PrismaUsersAndAccountRepository
+  implements IUserAndAccountRepository
+{
   async findById(id: string) {
     const user = await prisma.user.findUnique({
       where: {
         id,
       },
-    })
+    });
 
-    return user
+    return user;
   }
 
   async findByAccountId(id: string) {
@@ -19,22 +21,19 @@ export class PrismaUsersAndAccountRepository implements IUserAndAccountRepositor
       where: {
         id,
       },
-    })
+    });
 
-    return account
+    return account;
   }
 
   async findTransactionsByAccountId(id: string) {
     const transactions = await prisma.transaction.findMany({
       where: {
-        OR: [
-          { creditedAccountId: id },
-          { debitedAccountId: id },
-        ],
+        OR: [{ creditedAccountId: id }, { debitedAccountId: id }],
       },
-    })
+    });
 
-    return transactions
+    return transactions;
   }
 
   async findByUsername(username: string) {
@@ -42,17 +41,17 @@ export class PrismaUsersAndAccountRepository implements IUserAndAccountRepositor
       where: {
         username,
       },
-    })
+    });
 
-    return user
+    return user;
   }
 
   async create(data: Prisma.UserCreateInput) {
     const user = await prisma.user.create({
       data,
-    })
+    });
 
-    return user
+    return user;
   }
 
   async updateBalance(id: string, newBalance: number) {
@@ -63,23 +62,12 @@ export class PrismaUsersAndAccountRepository implements IUserAndAccountRepositor
       data: {
         balance: newBalance,
       },
-    })
+    });
   }
 
-  // async createTransaction(data: Prisma.TransactionCreateInput): Promise<void> {
-  //    await prisma.transaction.create({
-  //     data,
-  //   });
-
   async createTransaction(data: Prisma.TransactionCreateInput): Promise<void> {
-    try {
-      await prisma.transaction.create({
-        data,
-      });
-    } catch (error) {
-      // Você pode adicionar logs ou tratamentos específicos de erro aqui
-      console.error('Erro ao criar transação:', error.message);
-      throw new Error('Erro ao criar transação.');
-    }
+    await prisma.transaction.create({
+      data,
+    });
   }
 }
