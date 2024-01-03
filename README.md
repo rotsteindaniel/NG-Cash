@@ -32,7 +32,7 @@ NG.CASH
 - [x] (depois de logado) Deve ser possível ver balance do User
 - [x] (depois de logado) Deve ser possível ver Tabela com os detalhes de todas as transações que o usuário participou
 - [x] (depois de logado) Deve ser possível transferir para outros usuários NG a partir do username de quem sofrerá o cash-in
-- [x] (depois de logado) Deve ser possível filtrar a tabela por data de transação e/ou transações do tipo cash-in/cash-out; (ja fiz o filtro adicionando na tabela transactions o campo type)
+- [x] (depois de logado) Deve ser possível filtrar a tabela por data de transação e/ou transações do tipo cash-in/cash-out; (ja fiz o filtro adicionando na tabela transactions o campo type, o filtro será feito no front end)
 - [x] (depois de logado) Deve ser possível realizar logOut (vou fazer no front retirando o cookie JWT)
 
 ## RFs (Requisitos funcionais) Frontend
