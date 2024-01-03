@@ -24,6 +24,19 @@ export class PrismaUsersAndAccountRepository implements IUserAndAccountRepositor
     return account
   }
 
+  async findTransactionsByAccountId(id: string) {
+    const transactions = await prisma.transaction.findMany({
+      where: {
+        OR: [
+          { creditedAccountId: id },
+          { debitedAccountId: id },
+        ],
+      },
+    })
+
+    return transactions
+  }
+
   async findByUsername(username: string) {
     const user = await prisma.user.findUnique({
       where: {

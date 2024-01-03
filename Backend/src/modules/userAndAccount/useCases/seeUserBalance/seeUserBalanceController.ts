@@ -9,9 +9,9 @@ export async function seeUserBalanceController(
   request: FastifyRequest,
   reply: FastifyReply
 ) {
-  const seeUserBalanceUseCase = makeSeeUserBalanceUseCase();
+  const seeUserAccountTransactionsUseCase = makeSeeUserBalanceUseCase();
 
-  const { balance } = await seeUserBalanceUseCase.execute({
+  const { balance } = await seeUserAccountTransactionsUseCase.execute({
     accountId: request.user.accountId,
   });
 
