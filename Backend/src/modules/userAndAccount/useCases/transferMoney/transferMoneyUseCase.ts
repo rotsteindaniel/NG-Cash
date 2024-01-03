@@ -1,6 +1,8 @@
 import { ResourceNotFoundError } from "@/shared/errors/resource-not-found-error";
 import { IUserAndAccountRepository } from "../../repositories/IUserAndAccountRepository";
 import { Transaction } from "@prisma/client";
+import { InsufficientBalanceError } from "@/shared/errors/insufficient-balance-error";
+import { SameAccountTransactionError } from "@/shared/errors/same-account-in-transaction-error";
 // import { User } from "@prisma/client";
 
 interface TransferMoneyUseCaseRequest {
@@ -34,7 +36,7 @@ export class TransferMoneyUseCase {
 
     // Verificar se está tentando transferir para a própria conta
     if (sourceAccountId === targetAccountId) {
-      throw new Error("Não é permitido transferir dinheiro para a própria conta.");
+      throw new SameAccountTransactionError("Não é permitido transferir dinheiro para a própria conta.");
     }
 
      // Lógica de transferência de dinheiro (debitar da conta de sourceUser e creditar na conta de targetUser)
@@ -42,7 +44,7 @@ export class TransferMoneyUseCase {
 
     // Exemplo (esta lógica pode variar dependendo dos requisitos do seu sistema):
     if (sourceAccount.balance < amount) {
-      throw new Error("Saldo insuficiente para realizar a transferência.");
+      throw new InsufficientBalanceError("Saldo insuficiente para realizar a transferência.");
     }
 
    const sourceNewBalance = sourceAccount.balance -= amount;

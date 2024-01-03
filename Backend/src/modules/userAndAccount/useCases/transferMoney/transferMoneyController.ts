@@ -5,6 +5,8 @@ import { z } from "zod";
 // import { makeRegisterUserAndAccountUseCase } from "../factories/makeRegisterUserAndAccountUseCase";
 // import { makeSeeUserBalanceUseCase } from "../factories/makeSeeUserBalanceUseCase";
 import { makeTransferMoneyUseCase } from "../factories/makeTransferMoneyUseCase";
+import { SameAccountTransactionError } from "@/shared/errors/same-account-in-transaction-error";
+import { InsufficientBalanceError } from "@/shared/errors/insufficient-balance-error";
 
 export async function transferMoneyController(
   request: FastifyRequest,
@@ -33,13 +35,24 @@ export async function transferMoneyController(
   const sourceAccountId = request.user.accountId;
   const { targetUsername, amount } = transferMoneyBodySchema.parse(request.body);
 
-  await transferMoneyUseCase.execute({
-    sourceAccountId,
-    targetUsername,
-    amount: parseFloat(amount),
-  });
-
-  return reply
-    .status(200)
-    .send({ message: "Transferência realizada com sucesso." });
+  try {
+    await transferMoneyUseCase.execute({
+      sourceAccountId,
+      targetUsername,
+      amount: parseFloat(amount),
+    });
+  
+    return reply
+      .status(200)
+      .send({ message: "Transferência realizada com sucesso." });
+  } catch (err) {
+    if (err instanceof SameAccountTransactionError) {
+      return reply.status(409).send({ message: err.message });
+    }
+    if (err instanceof InsufficientBalanceError) {
+      return reply.status(409).send({ message: err.message });
+    }
+    
+  }
+ 
 }
