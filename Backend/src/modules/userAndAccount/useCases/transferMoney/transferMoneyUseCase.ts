@@ -36,7 +36,7 @@ export class TransferMoneyUseCase {
 
     // Verificar se está tentando transferir para a própria conta
     if (sourceAccountId === targetAccountId) {
-      throw new SameAccountTransactionError("Não é permitido transferir dinheiro para a própria conta.");
+      throw new SameAccountTransactionError();
     }
 
      // Lógica de transferência de dinheiro (debitar da conta de sourceUser e creditar na conta de targetUser)
@@ -44,7 +44,7 @@ export class TransferMoneyUseCase {
 
     // Exemplo (esta lógica pode variar dependendo dos requisitos do seu sistema):
     if (sourceAccount.balance < amount) {
-      throw new InsufficientBalanceError("Saldo insuficiente para realizar a transferência.");
+      throw new InsufficientBalanceError();
     }
 
    const sourceNewBalance = sourceAccount.balance -= amount;
