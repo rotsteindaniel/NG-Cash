@@ -30,10 +30,10 @@ NG.CASH
 - [x] (depois cadastro), automaticamente cria 1 account, na tabela account com R$100 de balance;
 - [x] Deve ser possível logar um User (informe username, password para cadastrar);
 - [x] (depois de logado) Deve ser possível ver balance do User
-- [ ] (depois de logado) Deve ser possível ver Tabela com os detalhes de todas as transações que o usuário participou (conferir depois de ver se consegue transferir)
+- [x] (depois de logado) Deve ser possível ver Tabela com os detalhes de todas as transações que o usuário participou (conferir depois de ver se consegue transferir)
 - [x] (depois de logado) Deve ser possível transferir para outros usuários NG a partir do username de quem sofrerá o cash-in
-- [ ] (depois de logado) Deve ser possível filtrar a tabela por data de transação e/ou transações do tipo cash-in/cash-out;
-- [ ] (depois de logado) Deve ser possível realizar logOut
+- [x] (depois de logado) Deve ser possível filtrar a tabela por data de transação e/ou transações do tipo cash-in/cash-out; (ja fiz o filtro adicionando na tabela transactions o campo type)
+- [x] (depois de logado) Deve ser possível realizar logOut (vou fazer no front retirando o cookie JWT)
 
 ## RFs (Requisitos funcionais) Frontend
 
@@ -53,17 +53,17 @@ NG.CASH
 - [x] password composta por pelo menos 8 caracteres, um número e uma letra maiúscula;
 - [x] (depois cadastro), automaticamente cria 1 account, na tabela account com R$100 de balance;
 - [x] (depois de logado) pode fazer cash-out informando o username do usuário que sofrerá o cash-in;
-- [ ] (depois de logado) deverá ser capaz de visualizar as transações financeiras (cash-out e cash-in) que participou;
-- [ ] Caso o usuário não tenha participado de uma determinada transação, ele nunca poderá ter acesso à ela;
-- [ ] Todo usuário logado deverá ser capaz de filtrar as transações financeiras que participou por:
+- [x] (depois de logado) deverá ser capaz de visualizar as transações financeiras (cash-out e cash-in) que participou;
+- [x] Caso o usuário não tenha participado de uma determinada transação, ele nunca poderá ter acesso à ela;
+- [x] Todo usuário logado deverá ser capaz de filtrar as transações financeiras que participou por: (será feito no front end)
       Data de realização da transação
       e/ou
       Transações de _cash-out;_
       Transações de _cash-in._
 - [x] Só pode cash-out se tiver balance suficiente para isso;
 - [x] Usuário não deverá ter a possibilidade de realizar uma transferência para si mesmo;
-- [ ] Toda nova transação bem-sucedida deverá ser registrada na tabela Transactions;
-- [ ] Em casos de falhas transacionais, a tabela Transactions não deverá ser afetada;
+- [x] Toda nova transação bem-sucedida deverá ser registrada na tabela Transactions;
+- [x] Em casos de falhas transacionais, a tabela Transactions não deverá ser afetada;
 
 ## RNs (Regras de negócio) Frontend
 

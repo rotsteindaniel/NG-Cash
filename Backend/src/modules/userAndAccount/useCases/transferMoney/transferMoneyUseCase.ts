@@ -37,6 +37,7 @@ export class TransferMoneyUseCase {
       targetAccountId
     );
 
+    // Verificar se as contas existem
     if (!sourceAccount || !targetAccount) {
       throw new ResourceNotFoundError();
     }

@@ -7,6 +7,7 @@ import { z } from "zod";
 import { makeTransferMoneyUseCase } from "../factories/makeTransferMoneyUseCase";
 import { SameAccountTransactionError } from "@/shared/errors/same-account-in-transaction-error";
 import { InsufficientBalanceError } from "@/shared/errors/insufficient-balance-error";
+import { ResourceNotFoundError } from "@/shared/errors/resource-not-found-error";
 
 export async function transferMoneyController(
   request: FastifyRequest,
@@ -50,6 +51,9 @@ export async function transferMoneyController(
       return reply.status(409).send({ message: err.message });
     }
     if (err instanceof InsufficientBalanceError) {
+      return reply.status(409).send({ message: err.message });
+    }
+    if (err instanceof ResourceNotFoundError) {
       return reply.status(409).send({ message: err.message });
     }
     
