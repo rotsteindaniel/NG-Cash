@@ -21,5 +21,6 @@ export async function usersRoutes(app: FastifyInstance) {
 
   app.get('/user/balance', { onRequest: [verifyJwt] }, seeUserBalanceController)
   app.get('/user/transactions', { onRequest: [verifyJwt] }, seeUserAccountTransactionsController)
+
   app.post('/user/transfer', { onRequest: [verifyJwt] }, transferMoneyController)
 }

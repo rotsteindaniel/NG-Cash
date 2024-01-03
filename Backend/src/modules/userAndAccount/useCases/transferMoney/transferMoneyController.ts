@@ -10,11 +10,21 @@ export async function transferMoneyController(
   request: FastifyRequest,
   reply: FastifyReply
 ) {
+  // const transferMoneyBodySchema = z.object({
+  //   targetUsername: z.string().min(3, { message: "Username needs to be at least 3 characters" }),
+  //   amount: z
+  //     .number()
+  //     .refine(value => value > 0, { message: "Amount needs to be a positive number" }),
+  // });
+
   const transferMoneyBodySchema = z.object({
     targetUsername: z.string().min(3, { message: "Username needs to be at least 3 characters" }),
     amount: z
-      .number()
-      .refine(value => value > 0, { message: "Amount needs to be a positive number" }),
+      .string()
+      .refine(value => {
+        const parsedValue = parseFloat(value);
+        return !isNaN(parsedValue) && parsedValue > 0;
+      }, { message: "Amount needs to be a positive number" }),
   });
 
 
@@ -26,7 +36,7 @@ export async function transferMoneyController(
   await transferMoneyUseCase.execute({
     sourceAccountId,
     targetUsername,
-    amount,
+    amount: parseFloat(amount),
   });
 
   return reply
