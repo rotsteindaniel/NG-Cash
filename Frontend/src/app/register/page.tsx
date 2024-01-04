@@ -43,7 +43,7 @@ export default function Register() {
           </Button>{" "}
           <br />
           <br />
-          Or <Link href="/">Go to login page!</Link>
+          Or <Link href="/">go to login page!</Link>
         </Form.Item>
       </Form>
     </main>
