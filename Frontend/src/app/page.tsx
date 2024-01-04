@@ -1,21 +1,20 @@
 "use client";
 import styles from "./page.module.css";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Space } from "antd";
+import { Button, Card, Form, Input } from "antd";
 import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className={styles.main}>
+    // <main className={styles.main}>
+    <Card title="Login" style={{ width: 300 }}>
       <Form
         name="normal_login"
         // className="login-form"
         className={styles.loginForm}
         initialValues={{ remember: true }}
       >
-        <h1 className={styles.title}>Login</h1>
-
-        <Space> </Space>
+        {/* <h1 className={styles.title}>Login</h1> */}
 
         <Form.Item
           name="username"
@@ -47,6 +46,7 @@ export default function Home() {
           Or <Link href="/register">register now!</Link>
         </Form.Item>
       </Form>
-    </main>
+    </Card>
+    // </main>
   );
 }
