@@ -11,7 +11,7 @@ export default function MainPage() {
     <Card title="Main Page" style={{ width: 500 }}>
       <Flex vertical align="center">
         <Button type="primary" size="large">
-          <Link href="/mainpage">Log Out</Link>
+          <Link href="/">Log Out</Link>
         </Button>
         <Flex vertical align="center">
           <Title level={2}>Oi user Daniel</Title>
