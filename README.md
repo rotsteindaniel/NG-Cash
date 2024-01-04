@@ -11,10 +11,10 @@ NG.CASH
 
 ## Frontend
 
-- [ ] React ou Next utilizando Typescript;
-- [ ] CSS3 ou uma biblioteca de estilização de sua preferência;
-- [ ] Página para realizar o cadastro na NG informando username e password.
-- [ ] Página para realizar o login informando username e password.
+- [x] React ou Next utilizando Typescript;
+- [x] CSS3 ou uma biblioteca de estilização de sua preferência; (usando Ant Desing para testar)
+- [x] Página para realizar o cadastro na NG informando username e password.
+- [x] Página para realizar o login informando username e password.
 
 ### Página principal deve apresentar:
 
@@ -91,5 +91,5 @@ NG.CASH
 
 ## RNFs (Requisitos não-funcionais) Frontend
 
-- [ ] A senha do usuário precisa estar criptografada ao armazenar no Banco de Dados;
+- [x] A senha do usuário precisa estar criptografada ao armazenar no Banco de Dados;
 - [ ] O usuário deve ser identificado por um JWT depois de se logar (JSON Web Token) (com 24h de validade);

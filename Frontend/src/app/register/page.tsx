@@ -1,7 +1,7 @@
 "use client";
 import styles from "./page.module.css";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Space } from "antd";
 import Link from "next/link";
 
 export default function Register() {
@@ -13,7 +13,10 @@ export default function Register() {
         className={styles.registerForm}
         initialValues={{ remember: true }}
       >
-        <h1 className={styles.title}>Register</h1> <br />
+        <h1 className={styles.title}>Register</h1>
+
+        <Space> </Space>
+
         <Form.Item
           name="username"
           rules={[{ required: true, message: "Please input your Username!" }]}
@@ -41,8 +44,6 @@ export default function Register() {
           >
             Register
           </Button>{" "}
-          <br />
-          <br />
           Or <Link href="/">go to login page!</Link>
         </Form.Item>
       </Form>
