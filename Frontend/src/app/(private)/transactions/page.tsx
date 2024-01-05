@@ -1,34 +1,98 @@
 "use client";
-import Link from "next/link";
+import { Table, TableProps } from "antd";
 import styles from "./page.module.css";
-import { Button, Card, Flex, Space, Typography } from "antd";
+import { ColumnsType } from "antd/es/table";
 
-const { Title } = Typography;
+interface DataType {
+  key: React.Key;
+  type: string;
+  value: number;
+  createdAt: string;
+}
 
-export default function MainPage() {
+const dataSource = [
+  {
+    key: "1",
+    type: "CashIn",
+    value: 32,
+    createdAt: "2024-01-05T17:53:35.717Z",
+  },
+  {
+    key: "2",
+    type: "CashOut",
+    value: 42,
+    createdAt: "2024-01-07T17:53:35.717Z",
+  },
+  {
+    key: "3",
+    type: "CashOut",
+    value: 42,
+    createdAt: "2024-02-15T17:53:35.717Z",
+  },
+  {
+    key: "4",
+    type: "CashIn",
+    value: 30,
+    createdAt: "2024-10-08T17:53:35.717Z",
+  },
+];
+
+const columns: ColumnsType<DataType> = [
+  {
+    title: "Type",
+    dataIndex: "type",
+    key: "type",
+    filters: [
+      {
+        text: "CashIn",
+        value: "CashIn",
+      },
+      {
+        text: "CashOut",
+        value: "CashOut",
+      },
+    ],
+    // specify the condition of filtering result
+    // here is that finding the name started with `value`
+    // onFilter: (value, record) => record.type.indexOf(value) === 0,
+    onFilter: (value, record) => record.type.indexOf(String(value)) === 0,
+    // sorter: (a, b) => a.type.length - b.type.length,
+    // sortDirections: ["descend", "ascend"],
+  },
+  {
+    title: "Value",
+    dataIndex: "value",
+    key: "value",
+  },
+  {
+    title: "CreatedAt",
+    dataIndex: "createdAt",
+    key: "createdAt",
+    // sorter: (a, b) => a.type.length - b.type.length,
+    // sortDirections: ["descend", "ascend"],
+  },
+];
+
+// const onChange: TableProps<DataType>["onChange"] = (
+//   pagination,
+//   filters,
+//   sorter,
+//   extra
+// ) => {
+//   console.log("params", pagination, filters, sorter, extra);
+// };
+
+export default function TransactionsPage() {
   return (
-    // <main className={styles.main}>
-    <Card title="Main Page" style={{ width: 500 }}>
-      <Flex vertical align="center">
-        <Button type="primary" size="large">
-          <Link href="/">Log Out</Link>
-        </Button>
-        <Flex vertical align="center">
-          <Title level={2}>Oi user Daniel</Title>
-        </Flex>
-        <Flex vertical align="center">
-          <Title level={4}>Balance: R$ 100,00</Title>
-        </Flex>
-        <Space size="small">
-          <Button type="primary" size="large">
-            <Link href="/transactions">Ir para todas as transações</Link>
-          </Button>
-          <Button type="primary" size="large">
-            <Link href="/mainpage">Realizar uma transação</Link>
-          </Button>
-        </Space>
-      </Flex>
-    </Card>
-    // </main>
+    <main className={styles.main}>
+      <Table
+        title={() => "All Transactions"}
+        dataSource={dataSource}
+        columns={columns}
+        // onChange={onChange}
+        size="large"
+      />
+      ;
+    </main>
   );
 }
