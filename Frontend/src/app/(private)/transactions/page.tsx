@@ -85,19 +85,19 @@ const columns: ColumnsType<DataType> = [
 
 export default function TransactionsPage() {
   return (
-    <main className={styles.main}>
-      <Card>
-        <Button type="primary">
-          <Link href="/mainpage">Go to main page!</Link>
-        </Button>
-        <Table
-          title={() => "All Transactions"}
-          dataSource={dataSource}
-          columns={columns}
-          // onChange={onChange}
-          size="large"
-        />
-      </Card>
-    </main>
+    // <main className={styles.main}>
+    <Card>
+      <Button type="primary">
+        <Link href="/mainpage">Go to main page!</Link>
+      </Button>
+      <Table
+        title={() => "All Transactions"}
+        dataSource={dataSource}
+        columns={columns}
+        // onChange={onChange}
+        size="large"
+      />
+    </Card>
+    // </main>
   );
 }
