@@ -1,7 +1,8 @@
 "use client";
-import { Table, TableProps } from "antd";
+import { Button, Card, Table, TableProps } from "antd";
 import styles from "./page.module.css";
 import { ColumnsType } from "antd/es/table";
+import Link from "next/link";
 
 interface DataType {
   key: React.Key;
@@ -85,14 +86,18 @@ const columns: ColumnsType<DataType> = [
 export default function TransactionsPage() {
   return (
     <main className={styles.main}>
-      <Table
-        title={() => "All Transactions"}
-        dataSource={dataSource}
-        columns={columns}
-        // onChange={onChange}
-        size="large"
-      />
-      ;
+      <Card>
+        <Button type="primary">
+          <Link href="/mainpage">Go to main page!</Link>
+        </Button>
+        <Table
+          title={() => "All Transactions"}
+          dataSource={dataSource}
+          columns={columns}
+          // onChange={onChange}
+          size="large"
+        />
+      </Card>
     </main>
   );
 }

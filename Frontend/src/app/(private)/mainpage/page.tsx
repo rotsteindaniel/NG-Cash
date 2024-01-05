@@ -24,7 +24,7 @@ export default function MainPage() {
             <Link href="/transactions">Ir para todas as transações</Link>
           </Button>
           <Button type="primary" size="large">
-            <Link href="/mainpage">Realizar uma transação</Link>
+            <Link href="/transfer">Realizar uma transação</Link>
           </Button>
         </Space>
       </Flex>
