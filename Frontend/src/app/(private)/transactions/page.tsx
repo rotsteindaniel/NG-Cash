@@ -87,7 +87,7 @@ export default function TransactionsPage() {
   return (
     // <main className={styles.main}>
     <Card>
-      <Button type="primary">
+      <Button type="primary" size="large">
         <Link href="/mainpage">Go to main page!</Link>
       </Button>
       <Table

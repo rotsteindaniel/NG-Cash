@@ -21,13 +21,14 @@ export default function TransferPage() {
           </Form.Item>
           <Form.Item>
             <Button
+              size="large"
               type="primary"
               htmlType="submit"
               className="login-form-button"
             >
               Transfer
             </Button>{" "}
-            <Button type="primary">
+            <Button type="primary" size="large">
               <Link href="/mainpage">Go to main page!</Link>
             </Button>
           </Form.Item>
