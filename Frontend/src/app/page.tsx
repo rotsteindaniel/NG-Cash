@@ -18,16 +18,14 @@ export default function Home() {
   const { signIn } = useContext(AuthContext);
 
   const onFinish = async ({ username, password }: any) => {
-    console.log("Success:", { username, password });
-    await signIn({ username, password });
-    router.replace("/mainpage");
-    message.success("Login success!");
-  };
-
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-    message.error("Login failed!");
-    router.replace("/");
+    try {
+      await signIn({ username, password });
+      router.replace("/mainpage");
+      message.success("Login success!");
+    } catch (error) {
+      message.error(error.response.data.message);
+      router.replace("/");
+    }
   };
 
   return (
@@ -37,7 +35,6 @@ export default function Home() {
         className="login-form"
         initialValues={{ remember: true }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
         <Form.Item<FieldType>
