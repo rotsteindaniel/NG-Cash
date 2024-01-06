@@ -6,16 +6,12 @@ import Link from "next/link";
 
 export default function Register() {
   return (
-    // <main className={styles.main}>
     <Card title="Register" style={{ width: 300 }}>
       <Form
         name="normal_login"
-        // className="login-form"
-        className={styles.registerForm}
+        className="login-form"
         initialValues={{ remember: true }}
       >
-        {/* <h1 className={styles.title}>Register</h1> */}
-
         <Form.Item
           name="username"
           rules={[{ required: true, message: "Please input your Username!" }]}
@@ -47,6 +43,5 @@ export default function Register() {
         </Form.Item>
       </Form>
     </Card>
-    // </main>
   );
 }
