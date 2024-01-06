@@ -23,7 +23,7 @@ export default function Home() {
       router.replace("/mainpage");
       message.success("Login success!");
     } catch (error) {
-      message.error((error as any).response.data.message);
+      message.error(error.response.data.message);
       router.replace("/");
     }
   };
