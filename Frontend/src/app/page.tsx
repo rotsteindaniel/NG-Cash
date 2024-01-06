@@ -1,22 +1,37 @@
 "use client";
 import styles from "./page.module.css";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Card, Form, Input } from "antd";
+import { Button, Card, Form, FormInstance, Input, message } from "antd";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+
+type FieldType = {
+  username?: string;
+  password?: string;
+};
 
 export default function Home() {
+  const onFinish = (values: any) => {
+    console.log("Success:", values);
+    message.success("Submit success!");
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log("Failed:", errorInfo);
+    message.error("Submit failed!");
+  };
+
   return (
-    // <main className={styles.main}>
     <Card title="Login" style={{ width: 300 }}>
       <Form
         name="normal_login"
-        // className="login-form"
-        className={styles.loginForm}
+        className="login-form"
         initialValues={{ remember: true }}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        autoComplete="off"
       >
-        {/* <h1 className={styles.title}>Login</h1> */}
-
-        <Form.Item
+        <Form.Item<FieldType>
           name="username"
           rules={[{ required: true, message: "Please input your Username!" }]}
         >
@@ -25,7 +40,7 @@ export default function Home() {
             placeholder="Username"
           />
         </Form.Item>
-        <Form.Item
+        <Form.Item<FieldType>
           name="password"
           rules={[{ required: true, message: "Please input your Password!" }]}
         >
@@ -47,6 +62,5 @@ export default function Home() {
         </Form.Item>
       </Form>
     </Card>
-    // </main>
   );
 }
