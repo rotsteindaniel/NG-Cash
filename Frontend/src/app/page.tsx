@@ -11,8 +11,8 @@ type FieldType = {
 };
 
 export default function Home() {
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
+  const onFinish = ({ username, password }: any) => {
+    console.log("Success:", { username, password });
     message.success("Login success!");
   };
 
