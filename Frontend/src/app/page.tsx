@@ -13,12 +13,12 @@ type FieldType = {
 export default function Home() {
   const onFinish = (values: any) => {
     console.log("Success:", values);
-    message.success("Submit success!");
+    message.success("Login success!");
   };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
-    message.error("Submit failed!");
+    message.error("Login failed!");
   };
 
   return (

@@ -1,20 +1,53 @@
 "use client";
 import styles from "./page.module.css";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Card, Form, Input, Space } from "antd";
+import { Button, Card, Form, Input, Space, message } from "antd";
 import Link from "next/link";
 
+const validatePassword = (_: any, value: string) => {
+  // Use uma expressão regular para verificar a presença de pelo menos 8 caracteres,
+  // um número e uma letra maiúscula.
+  const passwordRegex = /^(?=.*\d)(?=.*[A-Z]).{8,}$/;
+
+  if (!passwordRegex.test(value)) {
+    return Promise.reject(
+      "Password must be at least 8 characters long, contain a number, and an uppercase letter!"
+    );
+  }
+
+  return Promise.resolve();
+};
+
 export default function Register() {
+  const onFinish = (values: any) => {
+    console.log("Success:", values);
+    message.success("Register success!");
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log("Failed:", errorInfo);
+    message.error("Register failed!");
+  };
+
   return (
     <Card title="Register" style={{ width: 300 }}>
       <Form
-        name="normal_login"
-        className="login-form"
+        name="normal_register"
+        className="register-form"
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
         initialValues={{ remember: true }}
       >
         <Form.Item
           name="username"
-          rules={[{ required: true, message: "Please input your Username!" }]}
+          rules={[
+            { required: true, message: "Please input your Username!" },
+            { min: 3, message: "Username must be at least 3 characters long!" },
+            {
+              max: 20,
+              message: "Username must be less than 20 characters long!",
+            },
+          ]}
         >
           <Input
             prefix={<UserOutlined className="site-form-item-icon" />}
@@ -23,7 +56,10 @@ export default function Register() {
         </Form.Item>
         <Form.Item
           name="password"
-          rules={[{ required: true, message: "Please input your Password!" }]}
+          rules={[
+            { required: true, message: "Please input your Password!" },
+            { validator: validatePassword },
+          ]}
         >
           <Input.Password
             prefix={<LockOutlined className="site-form-item-icon" />}
