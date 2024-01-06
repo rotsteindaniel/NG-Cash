@@ -4,10 +4,17 @@ import fastify from 'fastify'
 import { ZodError } from 'zod'
 import { env } from '@/env'
 import { usersRoutes } from '@/shared/infra/http/routes/users.routes'
+// import cors from 'fastify-cors'
 // import { gymsRoutes } from '@/http/controllers/gyms/routes'
 // import { checkInsRoutes } from './http/controllers/check-ins/routes'
 
 export const app = fastify()
+
+// app.register(cors, {
+//   origin: '*',
+//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//   credentials: true,
+// });
 
 // app.register(fastifyJwt, {
 //   secret: env.JWT_SECRET,

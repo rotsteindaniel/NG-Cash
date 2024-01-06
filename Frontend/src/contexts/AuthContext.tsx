@@ -10,7 +10,7 @@ type User = {
   // email: string;
   // name: string;
   username: string;
-  password?: string;
+  password: string;
   // date: string;
   // gender: string;
 };
@@ -31,7 +31,7 @@ export type AuthContextType = {
   isAuthenticated: boolean;
   user: User | null;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
-  signIn: ({ email, password }: SignInData) => Promise<void>;
+  signIn: ({ username, password }: SignInData) => Promise<void>;
   logOut: () => void;
   // recoverUserInformation: () => Promise<void | { user: User }>;
   registerUser: (user: User) => Promise<void | JSON>;
@@ -64,28 +64,24 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const isAuthenticated = !!user;
 
   async function signIn({ username, password }: SignInData) {
-    try {
-      const response = await axios.post("http://localhost:3333/sessions", {
-        username,
-        password,
-      });
+    const response = await axios.post("http://localhost:3333/sessions", {
+      username,
+      password,
+    });
 
-      const { token } = await response.data;
+    const { token } = await response.data;
 
-      setCookie(undefined, "nextauth.token", token, {
-        maxAge: 60 * 60 * 1 * 24, // 24 hour
-      });
+    setCookie(undefined, "nextauth.token", token, {
+      maxAge: 60 * 60 * 1 * 24, // 24 hour
+    });
 
-      // Set Authorization header for all subsequent requests
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    // Set Authorization header for all subsequent requests
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-      // Atualiza os dados do usuário após o login
-      // await recoverUserInformation();
+    // Atualiza os dados do usuário após o login
+    // await recoverUserInformation();
 
-      Router.push("/mainpage");
-    } catch (error) {
-      alert("Incorrect login or password.");
-    }
+    Router.push("/mainpage");
   }
 
   async function logOut() {

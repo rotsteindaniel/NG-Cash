@@ -1,9 +1,11 @@
 "use client";
+import { AuthContext } from "@/contexts/AuthContext";
 import styles from "./page.module.css";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Card, Form, FormInstance, Input, message } from "antd";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 type FieldType = {
   username?: string;
@@ -11,14 +13,21 @@ type FieldType = {
 };
 
 export default function Home() {
-  const onFinish = ({ username, password }: any) => {
+  const router = useRouter();
+
+  const { signIn } = useContext(AuthContext);
+
+  const onFinish = async ({ username, password }: any) => {
     console.log("Success:", { username, password });
+    await signIn({ username, password });
+    router.replace("/mainpage");
     message.success("Login success!");
   };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
     message.error("Login failed!");
+    router.replace("/");
   };
 
   return (
