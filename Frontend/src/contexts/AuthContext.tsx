@@ -5,6 +5,7 @@ import { setCookie, parseCookies } from "nookies";
 import { useRouter } from "next/navigation";
 
 import axios from "axios";
+import { message } from "antd";
 
 type User = {
   // email: string;
@@ -89,6 +90,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     delete axios.defaults.headers.common["Authorization"];
     setUser(null);
     Router.push("/");
+    message.success("Logout success!");
   }
 
   // async function recoverUserInformation(): Promise<{ user: User }> {
