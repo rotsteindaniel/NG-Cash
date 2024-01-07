@@ -1,8 +1,11 @@
 "use client";
+import { AuthContext } from "@/contexts/AuthContext";
 import styles from "./page.module.css";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Card, Form, Input, Space, message } from "antd";
 import Link from "next/link";
+import { useContext } from "react";
+import { useRouter } from "next/navigation";
 
 const validatePassword = (_: any, value: string) => {
   // Use uma expressão regular para verificar a presença de pelo menos 8 caracteres,
@@ -19,14 +22,18 @@ const validatePassword = (_: any, value: string) => {
 };
 
 export default function Register() {
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
-    message.success("Register success!");
-  };
+  const router = useRouter();
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-    message.error("Register failed!");
+  const { registerUser } = useContext(AuthContext);
+
+  const onFinish = async ({ username, password }: any) => {
+    try {
+      await registerUser({ username, password });
+      router.replace("/");
+    } catch (error) {
+      message.error(error.response.data.message);
+      router.replace("/");
+    }
   };
 
   return (
@@ -35,7 +42,6 @@ export default function Register() {
         name="normal_register"
         className="register-form"
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         initialValues={{ remember: true }}
       >
         <Form.Item

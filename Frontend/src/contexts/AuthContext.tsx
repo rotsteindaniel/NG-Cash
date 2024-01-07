@@ -34,7 +34,7 @@ export type AuthContextType = {
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
   signIn: ({ username, password }: SignInData) => Promise<void>;
   logOut: () => void;
-  // recoverUserInformation: () => Promise<void | { user: User }>;
+  recoverUserInformation: () => Promise<void | { user: User }>;
   registerUser: (user: User) => Promise<void | JSON>;
   // updateUser: (data: UpdateUserData) => Promise<void | JSON>;
   // deleteUser: () => Promise<void | JSON>;
@@ -54,12 +54,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    // const { "nextauth.token": token } = parseCookies();
-    // if (token) {
-    //   recoverUserInformation().then((response) => {
-    //     setUser(response.user);
-    //   });
-    // }
+    const { "nextauth.token": token } = parseCookies();
+    if (token) {
+      recoverUserInformation().then((response) => {
+        setUser(response.user);
+      });
+    }
   }, []);
 
   const isAuthenticated = !!user;
@@ -93,45 +93,20 @@ export function AuthProvider({ children }: AuthProviderProps) {
     message.success("Logout success!");
   }
 
-  // async function recoverUserInformation(): Promise<{ user: User }> {
-  //   const { "nextauth.token": token } = parseCookies();
+  async function recoverUserInformation(): Promise<{ user: User }> {
+    const { "nextauth.token": token } = parseCookies();
 
-  //   const response = await axios.get("http://localhost:3333/users/profile", {
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   });
+    const response = await axios.get("http://localhost:3333/users/profile", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-  //   const { email, name, date, gender } = response.data;
-  //   setUser({ email, name, date, gender });
+    const { username, password = "" } = response.data;
+    setUser({ username, password });
 
-  //   return { user: { email, name, date, gender } };
-  // }
-
-  // async function registerUser({ email, password, name, date, gender }: User) {
-  //   setIsLoading(true);
-  //   const { "nextauth.token": token } = parseCookies();
-
-  //   const response = await axios.post(
-  //     "http://localhost:3333/users",
-  //     {
-  //       email,
-  //       password,
-  //       name,
-  //       date,
-  //       gender,
-  //     },
-  //     {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     }
-  //   );
-
-  //   const { message } = await response.data;
-  //   setIsLoading(false);
-  //   return message;
-  // }
+    // return { username, password };
+  }
 
   async function registerUser({ username, password }: User) {
     setIsLoading(true);
@@ -150,10 +125,31 @@ export function AuthProvider({ children }: AuthProviderProps) {
       }
     );
 
-    const { message } = await response.data;
     setIsLoading(false);
-    return message;
+    message.success("Register success!");
   }
+
+  // async function registerUser({ username, password }: User) {
+  //   setIsLoading(true);
+  //   const { "nextauth.token": token } = parseCookies();
+
+  //   const response = await axios.post(
+  //     "http://localhost:3333/users",
+  //     {
+  //       username,
+  //       password,
+  //     },
+  //     {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     }
+  //   );
+
+  //   const { message } = await response.data;
+  //   setIsLoading(false);
+  //   return message;
+  // }
 
   // async function updateUser({ email, name, date, gender }: UpdateUserData) {
   //   setIsLoading(true);
@@ -219,7 +215,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         setUser,
         signIn,
         logOut,
-        // recoverUserInformation,
+        recoverUserInformation,
         registerUser,
         // updateUser,
         // deleteUser,
