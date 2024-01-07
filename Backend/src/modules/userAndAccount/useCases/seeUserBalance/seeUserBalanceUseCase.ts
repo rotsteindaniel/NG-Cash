@@ -3,10 +3,12 @@ import { IUserAndAccountRepository } from "../../repositories/IUserAndAccountRep
 // import { User } from "@prisma/client";
 
 interface SeeUserBalanceUseCaseRequest {
+  userId: string;
   accountId: string;
 }
 
 interface SeeUserBalanceUseCaseResponse {
+  username: string;
   balance: number;
 }
 
@@ -14,11 +16,19 @@ export class SeeUserBalanceUseCase {
   constructor(private usersAndAccountRepository: IUserAndAccountRepository) {}
 
   async execute({
+    userId,
     accountId,
   }: SeeUserBalanceUseCaseRequest): Promise<SeeUserBalanceUseCaseResponse> {
-    // const user = await this.usersAndAccountRepository.findById(userId);
+    const user = await this.usersAndAccountRepository.findById(userId);
+    const username = user?.username;
     const account = await this.usersAndAccountRepository.findByAccountId(accountId);
 
+    if (!user) {
+      throw new ResourceNotFoundError();
+    }
+    if (!username) {
+      throw new ResourceNotFoundError();
+    }
     if (!account) {
       throw new ResourceNotFoundError();
     }
@@ -26,7 +36,8 @@ export class SeeUserBalanceUseCase {
     const balance = account.balance;
 
     return {
-      balance,
+      username,
+      balance
     };
   }
 }

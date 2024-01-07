@@ -11,11 +11,13 @@ export async function seeUserBalanceController(
 ) {
   const seeUserAccountTransactionsUseCase = makeSeeUserBalanceUseCase();
 
-  const { balance } = await seeUserAccountTransactionsUseCase.execute({
+  const { username, balance } = await seeUserAccountTransactionsUseCase.execute({
+    userId: request.user.sub,
     accountId: request.user.accountId,
   });
 
   return reply.status(200).send({
+    username,
     balance,
   });
 }
