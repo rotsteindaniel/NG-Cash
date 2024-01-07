@@ -40,6 +40,7 @@ export type AuthContextType = {
     balance: number;
   }>;
   registerUser: (user: User) => Promise<void | JSON>;
+  seeUserAccountTransactions: () => Promise<void | JSON>;
   // updateUser: (data: UpdateUserData) => Promise<void | JSON>;
   // deleteUser: () => Promise<void | JSON>;
   isLoading: boolean;
@@ -139,27 +140,25 @@ export function AuthProvider({ children }: AuthProviderProps) {
     message.success("Register success!");
   }
 
-  // async function registerUser({ username, password }: User) {
-  //   setIsLoading(true);
-  //   const { "nextauth.token": token } = parseCookies();
+  async function seeUserAccountTransactions() {
+    setIsLoading(true);
+    const { "nextauth.token": token } = parseCookies();
 
-  //   const response = await axios.post(
-  //     "http://localhost:3333/users",
-  //     {
-  //       username,
-  //       password,
-  //     },
-  //     {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     }
-  //   );
+    const response = await axios.get(
+      "http://localhost:3333/user/transactions",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
-  //   const { message } = await response.data;
-  //   setIsLoading(false);
-  //   return message;
-  // }
+    const data = await response.data;
+    // console.log(data);
+    setIsLoading(false);
+    return data;
+    // return message;
+  }
 
   // async function updateUser({ email, name, date, gender }: UpdateUserData) {
   //   setIsLoading(true);
@@ -227,6 +226,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         logOut,
         recoverUserInformation,
         registerUser,
+        seeUserAccountTransactions,
         // updateUser,
         // deleteUser,
       }}

@@ -21,12 +21,12 @@ export async function seeUserAccountTransactionsController(
 
  // Mapeie as transações para incluir informações sobre "cash in" ou "cash out" e nomes de usuário
  const enrichedTransactions = await Promise.all(transactions.map(async (transaction) => {
-   const repository = new PrismaUsersAndAccountRepository();
+  //  const repository = new PrismaUsersAndAccountRepository();
 
   // const creditedUser = await repository.findUserByAccountId(transaction.creditedAccountId);
   // console.log('Credited User:', creditedUser);
-  const debitedUser = await repository.findUserByAccountId(transaction.debitedAccountId);
-  console.log('Debited User:', debitedUser);
+  // const debitedUser = await repository.findUserByAccountId(transaction.debitedAccountId);
+  // console.log('Debited User:', debitedUser);
 
   return {
     ...transaction,

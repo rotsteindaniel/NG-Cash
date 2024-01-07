@@ -1,8 +1,12 @@
 "use client";
-import { Button, Card, Table, TableProps } from "antd";
+import { Button, Card, Table, TableProps, message } from "antd";
 import styles from "./page.module.css";
 import { ColumnsType } from "antd/es/table";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { AuthContext } from "@/contexts/AuthContext";
+import { useContext, useEffect, useState } from "react";
+import { parseCookies } from "nookies";
 
 interface DataType {
   key: React.Key;
@@ -11,32 +15,32 @@ interface DataType {
   createdAt: string;
 }
 
-const dataSource = [
-  {
-    key: "1",
-    type: "CashIn",
-    value: 32,
-    createdAt: "2024-01-05T17:53:35.717Z",
-  },
-  {
-    key: "2",
-    type: "CashOut",
-    value: 42,
-    createdAt: "2024-01-07T17:53:35.717Z",
-  },
-  {
-    key: "3",
-    type: "CashOut",
-    value: 42,
-    createdAt: "2024-02-15T17:53:35.717Z",
-  },
-  {
-    key: "4",
-    type: "CashIn",
-    value: 30,
-    createdAt: "2024-10-08T17:53:35.717Z",
-  },
-];
+// const dataSource = [
+//   {
+//     key: "1",
+//     type: "CashIn",
+//     value: 32,
+//     createdAt: "2024-01-05T17:53:35.717Z",
+//   },
+//   {
+//     key: "2",
+//     type: "CashOut",
+//     value: 42,
+//     createdAt: "2024-01-07T17:53:35.717Z",
+//   },
+//   {
+//     key: "3",
+//     type: "CashOut",
+//     value: 42,
+//     createdAt: "2024-02-15T17:53:35.717Z",
+//   },
+//   {
+//     key: "4",
+//     type: "CashIn",
+//     value: 30,
+//     createdAt: "2024-10-08T17:53:35.717Z",
+//   },
+// ];
 
 const columns: ColumnsType<DataType> = [
   {
@@ -45,12 +49,12 @@ const columns: ColumnsType<DataType> = [
     key: "type",
     filters: [
       {
-        text: "CashIn",
-        value: "CashIn",
+        text: "cash in",
+        value: "cash in",
       },
       {
-        text: "CashOut",
-        value: "CashOut",
+        text: "cash out",
+        value: "cash out",
       },
     ],
     // specify the condition of filtering result
@@ -84,6 +88,53 @@ const columns: ColumnsType<DataType> = [
 // };
 
 export default function TransactionsPage() {
+  const Router = useRouter();
+
+  const { user, logOut, isAuthenticated, seeUserAccountTransactions } =
+    useContext(AuthContext);
+  const [transactions, setTransactions] = useState<DataType[]>([]);
+
+  // Função para formatar o valor em reais
+  const formatCurrency = (value: number | undefined) => {
+    return new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    }).format(value ?? 0);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { "nextauth.token": token } = parseCookies();
+        if (!isAuthenticated && !token) {
+          message.warning("Você precisa estar logado para acessar esta página");
+          Router.replace("/");
+        } else {
+          const response = await seeUserAccountTransactions();
+          if (response) {
+            // Filtrar por tipo e formatar a data e valores
+            const formattedTransactions = response.enrichedTransactions.map(
+              (transaction: any) => ({
+                ...transaction,
+                createdAt: new Date(transaction.createdAt).toLocaleString(
+                  "pt-BR"
+                ),
+                value: formatCurrency(transaction.value),
+              })
+            );
+
+            setTransactions(formattedTransactions);
+          }
+        }
+      } catch (error) {
+        console.error("Erro ao buscar transações:", error);
+        // Adicione o tratamento de erro necessário aqui, como exibir uma mensagem de erro para o usuário
+      }
+    };
+
+    fetchData();
+  }, [isAuthenticated, user]);
+
   return (
     // <main className={styles.main}>
     <Card>
@@ -92,7 +143,7 @@ export default function TransactionsPage() {
       </Button>
       <Table
         title={() => "All Transactions"}
-        dataSource={dataSource}
+        dataSource={transactions}
         columns={columns}
         // onChange={onChange}
         size="large"
