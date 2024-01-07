@@ -21,7 +21,6 @@ export default function Home() {
     try {
       await signIn({ username, password });
       router.replace("/mainpage");
-      message.success("Login success!");
     } catch (error) {
       message.error(error.response.data.message);
       router.replace("/");

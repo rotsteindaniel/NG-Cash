@@ -81,7 +81,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     // Atualiza os dados do usuário após o login
     // await recoverUserInformation();
-
+    message.success("Login success!");
     Router.push("/mainpage");
   }
 
