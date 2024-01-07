@@ -18,9 +18,9 @@ NG.CASH
 
 ### Página principal deve apresentar:
 
-- [ ] Balance atual do usuário;
-- [ ] Seção voltada à realização de transferências para outros usuários NG a partir do username de quem sofrerá o cash-in;
-- [ ] Tabela com os detalhes de todas as transações que o usuário participou;
+- [x] Balance atual do usuário;
+- [x] Seção voltada à realização de transferências para outros usuários NG a partir do username de quem sofrerá o cash-in;
+- [x] Tabela com os detalhes de todas as transações que o usuário participou;
 - [x] Mecanismo para filtrar a tabela por data de transação e/ou transações do tipo cash-in/cash-out;
 - [x] Botão para realizar o log-out;
 
@@ -37,11 +37,11 @@ NG.CASH
 
 ## RFs (Requisitos funcionais) Frontend
 
-- [ ] Deve ser possível se cadastrar um User (informe username, password para cadastrar);
-- [ ] (depois cadastro), automaticamente cria 1 account, na tabela account com R$100 de balance;
+- [x] Deve ser possível se cadastrar um User (informe username, password para cadastrar);
+- [x] (depois cadastro), automaticamente cria 1 account, na tabela account com R$100 de balance;
 - [x] Deve ser possível logar um User (informe username, password para cadastrar);
-- [ ] (depois de logado) Deve ser possível ver balance do User
-- [ ] (depois de logado) Deve ser possível ver Tabela com os detalhes de todas as transações que o usuário participou
+- [x] (depois de logado) Deve ser possível ver balance do User
+- [x] (depois de logado) Deve ser possível ver Tabela com os detalhes de todas as transações que o usuário participou
 - [ ] (depois de logado) Deve ser possível transferir para outros usuários NG a partir do username de quem sofrerá o cash-in
 - [x] (depois de logado) Deve ser possível filtrar a tabela por data de transação e/ou transações do tipo cash-in/cash-out;
 - [x] (depois de logado) Deve ser possível realizar logOut
@@ -67,14 +67,14 @@ NG.CASH
 
 ## RNs (Regras de negócio) Frontend
 
-- [ ] username tem que ser único;
+- [x] username tem que ser único;
 - [x] username composto por, pelo menos, 3 caracteres;
 - [x] password composta por pelo menos 8 caracteres, um número e uma letra maiúscula;
-- [ ] (depois cadastro), automaticamente cria 1 account, na tabela account com R$100 de balance;
+- [x] (depois cadastro), automaticamente cria 1 account, na tabela account com R$100 de balance;
 - [ ] (depois de logado) pode fazer cash-out informando o username do usuário que sofrerá o cash-in;
-- [ ] (depois de logado) deverá ser capaz de visualizar as transações financeiras (cash-out e cash-in) que participou;
-- [ ] Caso o usuário não tenha participado de uma determinada transação, ele nunca poderá ter acesso à ela;
-- [ ] Todo usuário logado deverá ser capaz de filtrar as transações financeiras que participou por:
+- [x] (depois de logado) deverá ser capaz de visualizar as transações financeiras (cash-out e cash-in) que participou;
+- [x] Caso o usuário não tenha participado de uma determinada transação, ele nunca poderá ter acesso à ela;
+- [x] Todo usuário logado deverá ser capaz de filtrar as transações financeiras que participou por:
       Data de realização da transação
       e/ou
       Transações de _cash-out;_
