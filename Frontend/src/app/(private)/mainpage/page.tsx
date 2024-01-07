@@ -11,22 +11,22 @@ const { Title } = Typography;
 export default function MainPage() {
   const Router = useRouter();
 
-  const { user, setUser, isAuthenticated, recoverUserInformation, logOut } =
-    useContext(AuthContext);
-
-  async function fetchUserData() {
-    const userData = await recoverUserInformation();
-    setUser(userData?.user || null);
-  }
+  const { user, logOut, isAuthenticated } = useContext(AuthContext);
 
   useEffect(() => {
     if (!isAuthenticated) {
+      message.warning("Você precisa estar logado para acessar esta página");
       Router.push("/");
-      message.error("You are not logged in.");
-    } else {
-      fetchUserData();
     }
   }, [isAuthenticated]);
+
+  // Função para formatar o valor em reais
+  const formatCurrency = (value: number | undefined) => {
+    return new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    }).format(value ?? 0);
+  };
 
   return (
     // <main className={styles.main}>
@@ -38,10 +38,10 @@ export default function MainPage() {
           {/* </Link> */}
         </Button>
         <Flex vertical align="center">
-          <Title level={2}>Olá</Title>
+          <Title level={2}>Olá {user?.username}</Title>
         </Flex>
         <Flex vertical align="center">
-          <Title level={4}>Balance: R$ 100,00</Title>
+          <Title level={4}>Balance: {formatCurrency(user?.balance)}</Title>
         </Flex>
         <Space size="small">
           <Button type="primary" size="large">

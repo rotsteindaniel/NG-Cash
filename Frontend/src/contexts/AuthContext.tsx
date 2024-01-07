@@ -11,7 +11,8 @@ type User = {
   // email: string;
   // name: string;
   username: string;
-  password: string;
+  balance: number;
+  password?: string;
   // date: string;
   // gender: string;
 };
@@ -34,7 +35,10 @@ export type AuthContextType = {
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
   signIn: ({ username, password }: SignInData) => Promise<void>;
   logOut: () => void;
-  recoverUserInformation: () => Promise<void | { user: User }>;
+  recoverUserInformation: () => Promise<void | {
+    username: string;
+    balance: number;
+  }>;
   registerUser: (user: User) => Promise<void | JSON>;
   // updateUser: (data: UpdateUserData) => Promise<void | JSON>;
   // deleteUser: () => Promise<void | JSON>;
@@ -57,7 +61,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const { "nextauth.token": token } = parseCookies();
     if (token) {
       recoverUserInformation().then((response) => {
-        setUser(response.user);
+        if (response) {
+          setUser(response);
+        }
       });
     }
   }, []);
@@ -80,7 +86,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
     // Atualiza os dados do usuário após o login
-    // await recoverUserInformation();
+    await recoverUserInformation();
+
     message.success("Login success!");
     Router.push("/mainpage");
   }
@@ -93,17 +100,20 @@ export function AuthProvider({ children }: AuthProviderProps) {
     message.success("Logout success!");
   }
 
-  async function recoverUserInformation(): Promise<{ user: User }> {
+  async function recoverUserInformation(): Promise<void | {
+    username: string;
+    balance: number;
+  }> {
     const { "nextauth.token": token } = parseCookies();
 
-    const response = await axios.get("http://localhost:3333/users/profile", {
+    const response = await axios.get("http://localhost:3333/user/balance", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
-    const { username, password = "" } = response.data;
-    setUser({ username, password });
+    const { username, balance } = response.data;
+    setUser({ username, balance });
 
     // return { username, password };
   }
