@@ -16,7 +16,7 @@ export default function MainPage() {
   useEffect(() => {
     if (!isAuthenticated) {
       message.warning("Você precisa estar logado para acessar esta página");
-      Router.push("/");
+      Router.replace("/");
     }
   }, [isAuthenticated]);
 

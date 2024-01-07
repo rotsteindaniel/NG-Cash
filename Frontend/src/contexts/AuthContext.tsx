@@ -96,7 +96,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     setCookie(undefined, "nextauth.token", "", { maxAge: -1 });
     delete axios.defaults.headers.common["Authorization"];
     setUser(null);
-    Router.push("/");
+    Router.replace("/");
     message.success("Logout success!");
   }
 
