@@ -119,9 +119,9 @@ export default function TransactionsPage() {
             const formattedTransactions = response.enrichedTransactions.map(
               (transaction: any) => ({
                 ...transaction,
-                createdAt: new Date(transaction.createdAt).toLocaleDateString(
-                  "pt-BR"
-                ),
+                // createdAt: new Date(transaction.createdAt).toLocaleDateString(
+                //   "pt-BR"
+                // ),
                 value: formatCurrency(transaction.value),
               })
             );
