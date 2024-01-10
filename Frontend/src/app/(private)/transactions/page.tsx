@@ -1,5 +1,5 @@
 "use client";
-import { Button, Card, Table, TableProps, message } from "antd";
+import { Button, Card, Select, Table, TableProps, message } from "antd";
 import styles from "./page.module.css";
 import { ColumnsType } from "antd/es/table";
 import Link from "next/link";
@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { AuthContext } from "@/contexts/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import { parseCookies } from "nookies";
+import { Option } from "antd/es/mentions";
 
 interface DataType {
   key: React.Key;
@@ -73,6 +74,8 @@ const columns: ColumnsType<DataType> = [
     title: "CreatedAt",
     dataIndex: "createdAt",
     key: "createdAt",
+    sorter: (a, b) =>
+      new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
     // sorter: (a, b) => a.type.length - b.type.length,
     // sortDirections: ["descend", "ascend"],
   },
@@ -116,7 +119,7 @@ export default function TransactionsPage() {
             const formattedTransactions = response.enrichedTransactions.map(
               (transaction: any) => ({
                 ...transaction,
-                createdAt: new Date(transaction.createdAt).toLocaleString(
+                createdAt: new Date(transaction.createdAt).toLocaleDateString(
                   "pt-BR"
                 ),
                 value: formatCurrency(transaction.value),
