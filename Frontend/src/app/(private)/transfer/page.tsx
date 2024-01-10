@@ -17,39 +17,28 @@ import { useContext } from "react";
 import { AuthContext } from "@/contexts/AuthContext";
 
 export default function TransferPage() {
-  // const router = useRouter();
+  const router = useRouter();
 
   const { transferMoneyUsingUsername } = useContext(AuthContext);
 
   type transferData = {
     targetUsername: string;
-    value: string;
+    value: number;
   };
 
   const onFinish = async ({ targetUsername, value }: transferData) => {
-    try {
-      const amount = formatCurrency(value);
+    const amount = value.toString();
 
+    try {
       await transferMoneyUsingUsername({ targetUsername, amount });
-      // router.replace("/");
+      // message.success(error.response.data.message);
+      router.push("/mainpage");
     } catch (error) {
+      console.log(error);
       console.log(error);
       message.error(error.response.data.message);
       // router.replace("/");
     }
-  };
-
-  const formatCurrency = (value: string) => {
-    // Convert the value to a number (in case it's a string)
-    const numericValue = parseFloat(value);
-
-    // Format the numeric value as currency (BRL)
-    const formattedValue = new Intl.NumberFormat("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    }).format(numericValue);
-
-    return formattedValue;
   };
 
   return (
@@ -69,16 +58,20 @@ export default function TransferPage() {
         <Form.Item
           name="value"
           rules={[
-            { required: true, message: "Please input value!" },
             {
-              type: "string",
-              pattern: /^(\d+(\.\d{1,2})?)$/,
+              required: true,
               message:
-                "Please enter a valid numeric value. Using dot as decimal separator.",
+                "Please input an amount! Using comma as decimal separator.",
             },
           ]}
         >
-          <Input placeholder="value" />
+          <InputNumber
+            prefix="R$"
+            style={{ width: "100%" }}
+            step="0.01"
+            placeholder="0,00"
+            decimalSeparator=","
+          />
         </Form.Item>
 
         <Form.Item>

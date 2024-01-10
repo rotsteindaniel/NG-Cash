@@ -21,13 +21,15 @@ export async function transferMoneyController(
   // });
 
   const transferMoneyBodySchema = z.object({
-    targetUsername: z.string().min(3, { message: "Username needs to be at least 3 characters" }),
+    targetUsername: z.string().min(1, { message: "You need to transfer to someone" }),
     amount: z
-    .string()
-    .refine(value => {
-      const parsedValue = parseFloat(value.replace(',', '.'));
-      return !isNaN(parsedValue) && parsedValue > 0;
-    }, { message: "Amount needs to be a positive number" }),
+    .string().min(1).transform(
+      value => parseFloat(value)
+    ).refine(
+      value => value > 0, { message: "Amount needs to be a positive number" }
+    ).refine(
+      value => !isNaN(value), { message: "Amount needs to be a number" }
+    )
   });
 
 
@@ -40,7 +42,7 @@ export async function transferMoneyController(
     await transferMoneyUseCase.execute({
       sourceAccountId,
       targetUsername,
-      amount: parseFloat(amount),
+      amount,
     });
   
     return reply

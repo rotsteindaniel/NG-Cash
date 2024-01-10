@@ -5,20 +5,25 @@ import { Button, Card, Flex, Space, Typography, message } from "antd";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
+import { parseCookies } from "nookies";
 
 const { Title } = Typography;
 
 export default function MainPage() {
   const Router = useRouter();
 
-  const { user, logOut, isAuthenticated } = useContext(AuthContext);
+  const { user, recoverUserInformation, logOut, isAuthenticated } =
+    useContext(AuthContext);
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    const { "nextauth.token": token } = parseCookies();
+    recoverUserInformation();
+
+    if (!isAuthenticated && !token) {
       message.warning("Você precisa estar logado para acessar esta página");
       Router.replace("/");
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, user]);
 
   // Função para formatar o valor em reais
   const formatCurrency = (value: number | undefined) => {
