@@ -17,6 +17,11 @@ type User = {
   // gender: string;
 };
 
+type TransferMoneyUsingUsernameData = {
+  targetUsername: string;
+  amount: string;
+};
+
 export type SignInData = {
   username: string;
   password: string;
@@ -41,6 +46,10 @@ export type AuthContextType = {
   }>;
   registerUser: (user: User) => Promise<void | JSON>;
   seeUserAccountTransactions: () => Promise<void | JSON>;
+  transferMoneyUsingUsername: ({
+    targetUsername,
+    amount,
+  }: TransferMoneyUsingUsernameData) => Promise<void | JSON>;
   // updateUser: (data: UpdateUserData) => Promise<void | JSON>;
   // deleteUser: () => Promise<void | JSON>;
   isLoading: boolean;
@@ -160,6 +169,30 @@ export function AuthProvider({ children }: AuthProviderProps) {
     // return message;
   }
 
+  async function transferMoneyUsingUsername({
+    targetUsername,
+    amount,
+  }: TransferMoneyUsingUsernameData) {
+    setIsLoading(true);
+    const { "nextauth.token": token } = parseCookies();
+
+    const response = await axios.post(
+      "http://localhost:3333/user/transfer",
+      {
+        targetUsername,
+        amount,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    setIsLoading(false);
+    message.success("Transfer success!");
+  }
+
   // async function updateUser({ email, name, date, gender }: UpdateUserData) {
   //   setIsLoading(true);
   //   const { "nextauth.token": token } = parseCookies();
@@ -227,6 +260,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         recoverUserInformation,
         registerUser,
         seeUserAccountTransactions,
+        transferMoneyUsingUsername,
         // updateUser,
         // deleteUser,
       }}

@@ -23,11 +23,11 @@ export async function transferMoneyController(
   const transferMoneyBodySchema = z.object({
     targetUsername: z.string().min(3, { message: "Username needs to be at least 3 characters" }),
     amount: z
-      .string()
-      .refine(value => {
-        const parsedValue = parseFloat(value);
-        return !isNaN(parsedValue) && parsedValue > 0;
-      }, { message: "Amount needs to be a positive number" }),
+    .string()
+    .refine(value => {
+      const parsedValue = parseFloat(value.replace(',', '.'));
+      return !isNaN(parsedValue) && parsedValue > 0;
+    }, { message: "Amount needs to be a positive number" }),
   });
 
 
