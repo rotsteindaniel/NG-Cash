@@ -4,6 +4,9 @@ import { Transaction } from "@prisma/client";
 import { InsufficientBalanceError } from "@/shared/errors/insufficient-balance-error";
 import { SameAccountTransactionError } from "@/shared/errors/same-account-in-transaction-error";
 import { prisma } from "@/lib/prisma";
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+
 // import { User } from "@prisma/client";
 
 interface TransferMoneyUseCaseRequest {
@@ -81,21 +84,21 @@ export class TransferMoneyUseCase {
     // const creditedAccount = await prisma.account.findUnique({
     //   where: { id: targetAccount.id },
     // });
-    
+
     // const debitedAccount = await prisma.account.findUnique({
     //   where: { id: sourceAccount.id },
     // });
-    
+
     // if (!creditedAccount || !debitedAccount) {
     //   throw new ResourceNotFoundError();
     // }
 
-      // Criar transação
-      await this.usersAndAccountRepository.createTransaction({
-        creditedAccount: { connect: { id: targetAccount.id } },
-        debitedAccount: { connect: { id: sourceAccount.id } },
-        value: amount,
-        createdAt: new Date(),
-      });
+    // Criar transação
+    await this.usersAndAccountRepository.createTransaction({
+      creditedAccount: { connect: { id: targetAccount.id } },
+      debitedAccount: { connect: { id: sourceAccount.id } },
+      value: amount,
+      createdAt: new Date(),
+    });
   }
 }
