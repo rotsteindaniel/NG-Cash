@@ -8,6 +8,7 @@ import { AuthContext } from "@/contexts/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import { parseCookies } from "nookies";
 import { Option } from "antd/es/mentions";
+import dayjs from "dayjs";
 
 interface DataType {
   key: React.Key;
@@ -74,8 +75,8 @@ const columns: ColumnsType<DataType> = [
     title: "CreatedAt",
     dataIndex: "createdAt",
     key: "createdAt",
-    sorter: (a, b) =>
-      new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+    // sorter: (a, b) =>
+    // new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
     // sorter: (a, b) => a.type.length - b.type.length,
     // sortDirections: ["descend", "ascend"],
   },
@@ -119,9 +120,16 @@ export default function TransactionsPage() {
             const formattedTransactions = response.enrichedTransactions.map(
               (transaction: any) => ({
                 ...transaction,
-                // createdAt: new Date(transaction.createdAt).toLocaleDateString(
-                //   "pt-BR"
-                // ),
+                createdAt: new Date(transaction.createdAt).toLocaleDateString(
+                  "pt-BR",
+                  {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  }
+                ),
                 value: formatCurrency(transaction.value),
               })
             );

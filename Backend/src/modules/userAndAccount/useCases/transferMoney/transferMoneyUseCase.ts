@@ -4,8 +4,6 @@ import { Transaction } from "@prisma/client";
 import { InsufficientBalanceError } from "@/shared/errors/insufficient-balance-error";
 import { SameAccountTransactionError } from "@/shared/errors/same-account-in-transaction-error";
 import { prisma } from "@/lib/prisma";
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
 
 // import { User } from "@prisma/client";
 
