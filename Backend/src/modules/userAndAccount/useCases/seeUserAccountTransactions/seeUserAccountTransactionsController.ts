@@ -7,6 +7,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { makeSeeUserAccountTransactionsUseCase } from "../factories/makeSeeUserAccountTransactionsUseCase";
 import { prisma } from "@/lib/prisma";
 import { PrismaUsersAndAccountRepository } from "../../repositories/prisma/prismaUsersAndAccountRepository";
+import dayjs from "dayjs";
 
 
 export async function seeUserAccountTransactionsController(
@@ -27,10 +28,11 @@ export async function seeUserAccountTransactionsController(
   // console.log('Credited User:', creditedUser);
   // const debitedUser = await repository.findUserByAccountId(transaction.debitedAccountId);
   // console.log('Debited User:', debitedUser);
-
+  const dataBrasil = dayjs(transaction.createdAt).locale('pt-br');
   return {
     ...transaction,
     type: transaction.debitedAccountId === request.user.accountId ? 'cash out' : 'cash in',
+    createdAt: dataBrasil.format('DD/MM/YYYY HH:mm:ss')
     // creditedUsername: creditedUser?.username,
     // debitedUsername: debitedUser?.username,
   };
