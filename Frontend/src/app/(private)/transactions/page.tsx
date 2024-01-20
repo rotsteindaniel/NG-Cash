@@ -17,33 +17,6 @@ interface DataType {
   createdAt: string;
 }
 
-// const dataSource = [
-//   {
-//     key: "1",
-//     type: "CashIn",
-//     value: 32,
-//     createdAt: "2024-01-05T17:53:35.717Z",
-//   },
-//   {
-//     key: "2",
-//     type: "CashOut",
-//     value: 42,
-//     createdAt: "2024-01-07T17:53:35.717Z",
-//   },
-//   {
-//     key: "3",
-//     type: "CashOut",
-//     value: 42,
-//     createdAt: "2024-02-15T17:53:35.717Z",
-//   },
-//   {
-//     key: "4",
-//     type: "CashIn",
-//     value: 30,
-//     createdAt: "2024-10-08T17:53:35.717Z",
-//   },
-// ];
-
 const columns: ColumnsType<DataType> = [
   {
     title: "Type",
