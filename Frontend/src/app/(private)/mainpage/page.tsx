@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import styles from "./page.module.css";
 import { Button, Card, Flex, Space, Typography, message } from "antd";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "@/contexts/AuthContext";
@@ -20,12 +19,11 @@ export default function MainPage() {
     recoverUserInformation();
 
     if (!isAuthenticated && !token) {
-      message.warning("Você precisa estar logado para acessar esta página");
+      message.warning("You need to be logged in to access this page.");
       Router.replace("/");
     }
   }, [isAuthenticated, user]);
 
-  // Função para formatar o valor em reais
   const formatCurrency = (value: number | undefined) => {
     return new Intl.NumberFormat("pt-BR", {
       style: "currency",
@@ -34,30 +32,26 @@ export default function MainPage() {
   };
 
   return (
-    // <main className={styles.main}>
     <Card title="Main Page" style={{ width: 500 }}>
       <Flex vertical align="center">
         <Button type="primary" size="large" onClick={logOut}>
-          {/* <Link href="/" onClick={logOut}> */}
           Log Out
-          {/* </Link> */}
         </Button>
         <Flex vertical align="center">
-          <Title level={2}>Olá {user?.username}</Title>
+          <Title level={2}>Hello {user?.username}</Title>
         </Flex>
         <Flex vertical align="center">
           <Title level={4}>Balance: {formatCurrency(user?.balance)}</Title>
         </Flex>
         <Space size="small">
           <Button type="primary" size="large">
-            <Link href="/transactions">Ir para todas as transações</Link>
+            <Link href="/transactions">Go to all transactions</Link>
           </Button>
           <Button type="primary" size="large">
-            <Link href="/transfer">Realizar uma transação</Link>
+            <Link href="/transfer">Make a transaction</Link>
           </Button>
         </Space>
       </Flex>
     </Card>
-    // </main>
   );
 }

@@ -1,6 +1,5 @@
 "use client";
 import { AuthContext } from "@/contexts/AuthContext";
-import styles from "./page.module.css";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Card, Form, Input, Space, message } from "antd";
 import Link from "next/link";
@@ -8,8 +7,7 @@ import { useContext } from "react";
 import { useRouter } from "next/navigation";
 
 const validatePassword = (_: any, value: string) => {
-  // Use uma expressão regular para verificar a presença de pelo menos 8 caracteres,
-  // um número e uma letra maiúscula.
+  // A regular expression to check for at least 8 characters, one number, and one uppercase letter.
   const passwordRegex = /^(?=.*\d)(?=.*[A-Z]).{8,}$/;
 
   if (!passwordRegex.test(value)) {
@@ -30,7 +28,7 @@ export default function Register() {
     try {
       await registerUser({ username, password });
       router.replace("/");
-    } catch (error) {
+    } catch (error: any) {
       message.error(error.response.data.message);
       router.replace("/");
     }

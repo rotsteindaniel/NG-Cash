@@ -1,8 +1,4 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-// import { z, ZodError } from "zod";
-// import { UserAlreadyExistsError } from "@/shared/errors/user-already-exists-error";
-
-// import { makeRegisterUserAndAccountUseCase } from "../factories/makeRegisterUserAndAccountUseCase";
 import { makeSeeUserBalanceUseCase } from "../factories/makeSeeUserBalanceUseCase";
 
 export async function seeUserBalanceController(

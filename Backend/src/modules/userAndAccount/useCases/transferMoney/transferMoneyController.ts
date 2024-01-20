@@ -1,9 +1,5 @@
-import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
-// import { UserAlreadyExistsError } from "@/shared/errors/user-already-exists-error";
-
-// import { makeRegisterUserAndAccountUseCase } from "../factories/makeRegisterUserAndAccountUseCase";
-// import { makeSeeUserBalanceUseCase } from "../factories/makeSeeUserBalanceUseCase";
+import { FastifyReply, FastifyRequest } from "fastify";
 import { makeTransferMoneyUseCase } from "../factories/makeTransferMoneyUseCase";
 import { SameAccountTransactionError } from "@/shared/errors/same-account-in-transaction-error";
 import { InsufficientBalanceError } from "@/shared/errors/insufficient-balance-error";
@@ -13,12 +9,6 @@ export async function transferMoneyController(
   request: FastifyRequest,
   reply: FastifyReply
 ) {
-  // const transferMoneyBodySchema = z.object({
-  //   targetUsername: z.string().min(3, { message: "Username needs to be at least 3 characters" }),
-  //   amount: z
-  //     .number()
-  //     .refine(value => value > 0, { message: "Amount needs to be a positive number" }),
-  // });
 
   const transferMoneyBodySchema = z.object({
     targetUsername: z.string().min(1, { message: "You need to transfer to someone" }),
@@ -47,7 +37,7 @@ export async function transferMoneyController(
   
     return reply
       .status(200)
-      .send({ message: "Transferência realizada com sucesso." });
+      .send({ message: "Transfer completed successfully." });
   } catch (err) {
     if (err instanceof SameAccountTransactionError) {
       return reply.status(409).send({ message: err.message });

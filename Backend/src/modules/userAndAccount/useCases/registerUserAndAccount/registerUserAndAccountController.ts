@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { z, ZodError } from "zod";
+import { z } from "zod";
 import { UserAlreadyExistsError } from "@/shared/errors/user-already-exists-error";
 
 import { makeRegisterUserAndAccountUseCase } from "../factories/makeRegisterUserAndAccountUseCase";

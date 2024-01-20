@@ -8,13 +8,9 @@ import axios from "axios";
 import { message } from "antd";
 
 type User = {
-  // email: string;
-  // name: string;
   username: string;
   balance?: number;
   password?: string;
-  // date: string;
-  // gender: string;
 };
 
 type TransferMoneyUsingUsernameData = {
@@ -27,13 +23,6 @@ export type SignInData = {
   password: string;
 };
 
-// export type UpdateUserData = {
-//   email: string;
-//   name: string;
-//   date: string;
-//   gender: string;
-// };
-
 export type AuthContextType = {
   isAuthenticated: boolean;
   user: User | null;
@@ -45,13 +34,11 @@ export type AuthContextType = {
     balance: number;
   }>;
   registerUser: (user: User) => Promise<void | JSON>;
-  seeUserAccountTransactions: () => Promise<void | JSON>;
+  seeUserAccountTransactions: () => Promise<void | JSON | any>;
   transferMoneyUsingUsername: ({
     targetUsername,
     amount,
   }: TransferMoneyUsingUsernameData) => Promise<void | JSON>;
-  // updateUser: (data: UpdateUserData) => Promise<void | JSON>;
-  // deleteUser: () => Promise<void | JSON>;
   isLoading: boolean;
 };
 
@@ -95,7 +82,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     // Set Authorization header for all subsequent requests
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-    // Atualiza os dados do usuário após o login
+    // Update user data after login
     await recoverUserInformation();
 
     message.success("Login success!");
@@ -124,8 +111,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     const { username, balance } = response.data;
     setUser({ username, balance });
-
-    // return { username, password };
   }
 
   async function registerUser({ username, password }: User) {
@@ -163,10 +148,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
     );
 
     const data = await response.data;
-    // console.log(data);
     setIsLoading(false);
     return data;
-    // return message;
   }
 
   async function transferMoneyUsingUsername({
@@ -193,61 +176,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
     message.success("Transfer success!");
   }
 
-  // async function updateUser({ email, name, date, gender }: UpdateUserData) {
-  //   setIsLoading(true);
-  //   const { "nextauth.token": token } = parseCookies();
-
-  //   try {
-  //     const response = await axios.put(
-  //       "http://localhost:3333/users/profile/update",
-  //       {
-  //         email,
-  //         name,
-  //         date,
-  //         gender,
-  //       },
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       }
-  //     );
-
-  //     const { message } = await response.data;
-  //     setIsLoading(false);
-  //     return message;
-  //   } catch (error) {
-  //     setIsLoading(false);
-  //     console.error("Error updating user", error);
-  //     return Promise.reject("Error updating user");
-  //   }
-  // }
-
-  // async function deleteUser() {
-  //   setIsLoading(true);
-  //   const { "nextauth.token": token } = parseCookies();
-
-  //   try {
-  //     const response = await axios.delete(
-  //       "http://localhost:3333/users/profile/delete",
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       }
-  //     );
-
-  //     const { message } = await response.data;
-  //     setIsLoading(false);
-  //     logOut();
-  //     return message;
-  //   } catch (error) {
-  //     setIsLoading(false);
-  //     console.error("Error deleting user", error);
-  //     return Promise.reject("Error deleting user");
-  //   }
-  // }
-
   return (
     <AuthContext.Provider
       value={{
@@ -261,8 +189,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
         registerUser,
         seeUserAccountTransactions,
         transferMoneyUsingUsername,
-        // updateUser,
-        // deleteUser,
       }}
     >
       {children}

@@ -1,6 +1,5 @@
 import { ResourceNotFoundError } from "@/shared/errors/resource-not-found-error";
 import { IUserAndAccountRepository } from "../../repositories/IUserAndAccountRepository";
-// import { User } from "@prisma/client";
 
 interface SeeUserBalanceUseCaseRequest {
   userId: string;

@@ -5,8 +5,6 @@ import { ZodError } from 'zod'
 import { env } from '@/env'
 import { usersRoutes } from '@/shared/infra/http/routes/users.routes'
 import cors from '@fastify/cors'
-// import { gymsRoutes } from '@/http/controllers/gyms/routes'
-// import { checkInsRoutes } from './http/controllers/check-ins/routes'
 
 export const app = fastify()
 
@@ -16,17 +14,6 @@ app.register(cors, {
   credentials: true,
 });
 
-// app.register(fastifyJwt, {
-//   secret: env.JWT_SECRET,
-//   cookie: {
-//     cookieName: 'refreshToken',
-//     signed: false,
-//   },
-//   sign: {
-//     expiresIn: '10m',
-//   },
-// })
-
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
 })
@@ -34,8 +21,6 @@ app.register(fastifyJwt, {
 app.register(fastifyCookie)
 
 app.register(usersRoutes)
-// app.register(gymsRoutes)
-// app.register(checkInsRoutes)
 
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {

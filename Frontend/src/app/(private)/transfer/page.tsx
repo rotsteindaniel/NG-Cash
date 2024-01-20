@@ -1,16 +1,5 @@
 "use client";
-import {
-  Button,
-  Card,
-  Form,
-  Input,
-  InputNumber,
-  Table,
-  TableProps,
-  message,
-} from "antd";
-import styles from "./page.module.css";
-import { ColumnsType } from "antd/es/table";
+import { Button, Card, Form, Input, InputNumber, message } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
@@ -31,13 +20,9 @@ export default function TransferPage() {
 
     try {
       await transferMoneyUsingUsername({ targetUsername, amount });
-      // message.success(error.response.data.message);
       router.push("/mainpage");
-    } catch (error) {
-      console.log(error);
-      console.log(error);
+    } catch (error: any) {
       message.error(error.response.data.message);
-      // router.replace("/");
     }
   };
 

@@ -70,13 +70,4 @@ export class PrismaUsersAndAccountRepository
       data,
     });
   }
-
-  // Função para buscar informações do usuário com base no ID da conta
-  //  async findUserByAccountId(accountId: string) {
-  //   const user = await prisma.user.findUnique({
-  //     where: { id: accountId },
-  //   });
-
-  //   return user;
-  // }
 }

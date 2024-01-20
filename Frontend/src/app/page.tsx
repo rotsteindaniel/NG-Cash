@@ -1,10 +1,9 @@
 "use client";
 import { AuthContext } from "@/contexts/AuthContext";
-import styles from "./page.module.css";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Card, Form, FormInstance, Input, message } from "antd";
+import { Button, Card, Form, Input, message } from "antd";
 import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { useRouter } from "next/navigation";
 
 type FieldType = {
@@ -21,7 +20,7 @@ export default function Home() {
     try {
       await signIn({ username, password });
       router.replace("/mainpage");
-    } catch (error) {
+    } catch (error: any) {
       message.error(error.response.data.message);
       router.replace("/");
     }

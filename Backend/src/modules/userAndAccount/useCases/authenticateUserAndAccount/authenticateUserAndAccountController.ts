@@ -34,25 +34,7 @@ export async function authenticateUserAndAccountController(
       },
     )
 
-    // const refreshToken = await reply.jwtSign(
-    //   {
-    //     role: user.role,
-    //   },
-    //   {
-    //     sign: {
-    //       sub: user.id,
-    //       expiresIn: '7d',
-    //     },
-    //   },
-    // )
-
     return reply
-      // .setCookie('refreshToken', refreshToken, {
-      //   path: '/',
-      //   secure: true,
-      //   sameSite: true,
-      //   httpOnly: true,
-      // })
       .status(200)
       .send({
         token,

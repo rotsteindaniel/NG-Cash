@@ -28,12 +28,7 @@ const columns: ColumnsType<DataType> = [
         value: "cash out",
       },
     ],
-    // specify the condition of filtering result
-    // here is that finding the name started with `value`
-    // onFilter: (value, record) => record.type.indexOf(value) === 0,
     onFilter: (value, record) => record.type.indexOf(String(value)) === 0,
-    // sorter: (a, b) => a.type.length - b.type.length,
-    // sortDirections: ["descend", "ascend"],
   },
   {
     title: "Value",
@@ -44,30 +39,16 @@ const columns: ColumnsType<DataType> = [
     title: "CreatedAt",
     dataIndex: "createdAt",
     key: "createdAt",
-    // sorter: (a, b) =>
-    // new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-    // sorter: (a, b) => a.type.length - b.type.length,
-    // sortDirections: ["descend", "ascend"],
   },
 ];
-
-// const onChange: TableProps<DataType>["onChange"] = (
-//   pagination,
-//   filters,
-//   sorter,
-//   extra
-// ) => {
-//   console.log("params", pagination, filters, sorter, extra);
-// };
 
 export default function TransactionsPage() {
   const Router = useRouter();
 
-  const { user, logOut, isAuthenticated, seeUserAccountTransactions } =
+  const { user, isAuthenticated, seeUserAccountTransactions } =
     useContext(AuthContext);
   const [transactions, setTransactions] = useState<DataType[]>([]);
 
-  // Função para formatar o valor em reais
   const formatCurrency = (value: number | undefined) => {
     return new Intl.NumberFormat("pt-BR", {
       style: "currency",
@@ -80,12 +61,13 @@ export default function TransactionsPage() {
       try {
         const { "nextauth.token": token } = parseCookies();
         if (!isAuthenticated && !token) {
-          message.warning("Você precisa estar logado para acessar esta página");
+          message.warning("You need to be logged in to access this page");
           Router.replace("/");
         } else {
           const response = await seeUserAccountTransactions();
           if (response) {
-            // Filtrar por tipo e formatar a data e valores
+            const response = await seeUserAccountTransactions();
+
             const formattedTransactions = response.enrichedTransactions.map(
               (transaction: any) => ({
                 ...transaction,
@@ -98,8 +80,7 @@ export default function TransactionsPage() {
           }
         }
       } catch (error) {
-        console.error("Erro ao buscar transações:", error);
-        // Adicione o tratamento de erro necessário aqui, como exibir uma mensagem de erro para o usuário
+        message.error("Error while retrieving transactions");
       }
     };
 
@@ -107,7 +88,6 @@ export default function TransactionsPage() {
   }, [isAuthenticated, user]);
 
   return (
-    // <main className={styles.main}>
     <Card>
       <Button type="primary" size="large">
         <Link href="/mainpage">Go to main page!</Link>
@@ -116,10 +96,8 @@ export default function TransactionsPage() {
         title={() => "All Transactions"}
         dataSource={transactions}
         columns={columns}
-        // onChange={onChange}
         size="large"
       />
     </Card>
-    // </main>
   );
 }
