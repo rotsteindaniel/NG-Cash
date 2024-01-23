@@ -1,5 +1,7 @@
 # NG.CASH - Aplicação Full Stack
 
+https://github.com/rotsteindaniel/TestePraticarNG/assets/97666187/38715713-0825-40fe-9f55-d8eb541bd6fb
+
 ## Descrição
 
 Esta aplicação, denominada NG.CASH, é uma plataforma de gerenciamento financeiro que permite aos usuários realizar operações como cadastro, login, visualização de saldo, transferências e consulta de transações.
