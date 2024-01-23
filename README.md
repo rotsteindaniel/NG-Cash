@@ -1,6 +1,12 @@
-# App
+# NG.CASH - Aplicação Full Stack
 
-NG.CASH
+## Descrição
+
+Esta aplicação, denominada NG.CASH, é uma plataforma de gerenciamento financeiro que permite aos usuários realizar operações como cadastro, login, visualização de saldo, transferências e consulta de transações.
+
+Desenvolvida como parte de um teste para a vaga de Junior Full Stack (que recebi quando ainda estava iniciando e não sabia como fazer), a aplicação é composta por um backend construído em Node.js com Typescript, utilizando o Prisma ORM e persistindo dados em um banco PostgreSQL (Utilizando Docker).
+
+O frontend é implementado Next.js, Typescript, e utiliza CSS3 com uma biblioteca de estilização (Ant Design).
 
 ## Backend
 
@@ -89,3 +95,35 @@ NG.CASH
 
 - [x] A senha do usuário precisa estar criptografada ao armazenar no Banco de Dados;
 - [x] O usuário deve ser identificado por um JWT depois de se logar (JSON Web Token) (com 24h de validade);
+
+## Tecnologias Utilizadas
+
+### Backend:
+
+- Node.js
+- Typescript
+- Prisma ORM
+- PostgreSQL
+- Docker
+
+### Frontend:
+
+- Next.js
+- Typescript
+- CSS3, Ant Design
+
+### Como rodar o projeto:
+
+1. Clonar o repositorio ou baixar e descompactar
+2. Criar um arquivo ".env" na pasta "Backend" seguindo os moldes do ".env.example"
+3. Dentro da pasta "Backend" rodar o comando "docker compose up -d" para ler o arquivo "docker-compose.yml"
+4. Instalar as dependencias:
+5. Entrar na pasta "Backend" e rodar "npm install"
+6. Dentro da pasta "Backend" rodar "npm run dev"
+7. Dentro da pasta "Frontend" rodar "npm install"
+8. Dentro da pasta "Frontend" rodar "npm run dev"
+9. A aplicação estará rodando em http://localhost:3000
+
+Este projeto foi desenvolvido como resposta ao teste para a vaga de Junior Full Stack que recebi a muito tempo atrás, demonstrando habilidades tanto no desenvolvimento do backend quanto do frontend, além de boas práticas de segurança e organização de código.
+
+Se tiver alguma dúvida ou sugestão, sinta-se à vontade para entrar em contato!
